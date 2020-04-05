@@ -14,7 +14,7 @@ CREATE TABLE User(
 
 CREATE TABLE Admin(
     user_id int not null,
-    primary key(user_id)
+    primary key(user_id),
     foreign key(user_id) references User(user_id) ON DELETE CASCADE
 );
 
