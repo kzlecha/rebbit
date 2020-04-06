@@ -52,7 +52,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 // Check if username exists, if yes then verify password
                 if(mysqli_stmt_num_rows($stmt) == 1){                    
                     // Bind result variables
-                    mysqli_stmt_bind_result($stmt, $user_id, $user_name, $hashed_password);
+                    mysqli_stmt_bind_result($stmt, $id, $user_name, $hashed_password);
                     if(mysqli_stmt_fetch($stmt)){
                         if(password_verify($password, $hashed_password)){
                             // Password is correct, so start a new session
@@ -63,6 +63,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["user_id"] = $user_id;
                             $_SESSION["user_name"] = $user_name;                            
                             
+                // TODO: Make welcome page
                             // Redirect user to welcome page
                             header("location: welcome.php");
                         } else{
@@ -87,6 +88,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     mysqli_close($link);
 }
 ?>
+ 
+ <!-- TODO: Add linkage to Reset Password page -->
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -182,7 +186,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="form-group col-md-6">
                 <input type="submit" class="btn btn-primary submit_btn" value="Login">
             </div>
-            <p>Don't have an account? <a class="rebbit_link" href="register.php">Sign up</a></p>
+            <p style="font-size:small">Don't have an account? <a class="rebbit_link" href="register.php">Sign up</a></p>
+            <p style="font-size: small;">Forgot your password? <a class="rebbit_link" href="reset.php">Reset password</a></p>
         </form>
     </div>  
 </div>
