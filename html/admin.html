@@ -5,9 +5,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   
-  <title>Rebbit - Frogs 24/7</title>
+  <title>Rebbit - Your world of frogs</title>
 </head>
 <!-- Custom styling -->
 <style>
@@ -66,14 +66,32 @@
     margin: auto;
   }
 
-  .post_knot > legend{
-    font-size: small;
+  .cite_stats{
+    margin: 0% 2.5%;
+    max-width: 95%;
+    min-width: 25%;
+    text-align: center;
   }
 
-  form.post{
-    font-size: smaller;
+  table.table_stats{
+    width: 80%;
+    padding: 5%;border:1px solid #50504e;
+    border:1px solid #50504e;
+    border-collapse: collapse;
   }
-  
+
+  table.table_stats td{
+    padding: 5%;
+    border:1px solid #50504e;
+    
+  }
+  table.table_stats th{
+    background-color: #5b767c;
+  }
+
+  div.flex_post > h2{
+    color: #5b767c;
+  }
   
 </style>
 
@@ -82,7 +100,7 @@
   <!-- NAVIGATION BAR-->
   <nav style="background-color: #f1f0f0" class="navbar navbar-expand-lg navbar-light " >
     <a class="navbar-brand" href="index.html">
-      <img src="images/graphics/rebbit.png" width="115" height="30" alt="rebbit">
+      <img src="../images/assets/rebbit.png" width="115" height="30" alt="rebbit">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -98,6 +116,9 @@
           <a class="nav-link" href="#login">login</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="#admin">admin</a>
+        </li>
+         <li class="nav-item">
           <a class="nav-link" href="#about">about rebbit</a>
         </li>
         <li class="nav-item dropdown">
@@ -122,82 +143,91 @@
   <div class="container-fluid">
     <!-- Get username -->
     <p style="color:#4f676c;"><i>Hello, @froglover97</i></p>
-    <h1 style="padding-top: 1em; color:#4f676c;">@froglover97</h1>
+    <h1 style="padding-top: 1em; color:#4f676c;">Admin Portal</h1>
     <p class="top_desc">Hop to it partner. Also, the columns will automatically stack on top of each other when the screen is less than 768px wide.</p>
     <div class="row">
-      <div class="col-sm-5 overflow-auto your_knots" style="background-color: #b7d6c6; padding: 1em; border-radius: 25px;" >
-        <!-- Following -->
-        <h3 style="padding-bottom:.25em; color:#50504e;">Following</h3>
-        <!-- Flex -->
-        <div class="flex_post">
-          <!-- Knots -->
-          <div class="post">
-            <h4>Knots</h4><br>
-            <p class="post_knot">r/frog_kitchenware</p>
-            <p class="post_knot">r/frog_kitchenware</p>
-            <p class="post_knot">r/frog_kitchenware</p>
-          </div>
-
-          <!-- Users -->
-          <div class="post">
-            <h4>Users</h4><br>
-            <p class="post_knot">@undedturtle</p>
-            <p class="post_knot">@froglover97</p>
-            <p class="post_knot">@beepboop</p>
-          </div>
+      <!-- usage -->
+      <div class = "col-sm-12 cite_stats" style="background-color: #e7e4e4; padding: 1em; border-radius: 25px; ">
+        <!-- users -->
+        <div class = "flex_post">
+          <h2 style="width: 100%;">Growth by Day </h2>
+          <table class = "table_stats">
+            <tbody>
+              <!-- <h3>Growth in Number of Users</h3> -->
+              <tr>
+                <th>Date</th>
+                <th>Number of New Users</th>
+              </tr>
+              <tr>
+                <td>r/cuteFrogs</td>
+                <td>10</td>
+              </tr>
+              <!-- <h3>Growth in Number of Knots</h3> -->
+              <tr>
+                <th>Date</th>
+                <th>Number of New Knots</th>
+              </tr>
+              <tr>
+                <td>r/cuteFrogs</td>
+                <td>10</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+
+        <!-- Most popular subs -->
+        <div class = "flex_post">
+          <h2 style="width: 100%;">Most Popular Knots</h2><br>
+          <table class = "table_stats">
+            <!-- <h3>Popularity by Number of Posts</h3> -->
+            <tbody>
+              <tr>
+                <th>Knot</th>
+                <th>Number of Posts</th>
+              </tr>
+              <tr>
+                <td>r/cuteFrogs</td>
+                <td>10</td>
+              </tr>
+              <!-- <tr><h3>Popularity by Number of Followers</h3></tr> -->
+              <tr>
+                <th>Knot</th>
+                <th>Number of Followers</th>
+              </tr>
+              <tr>
+                <td>r/cuteFrogs</td>
+                <td>10</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Soft Deletes -->
+        <div class = "flex_post">
+          <h2 style="width: 100%;">soft deleted item</h2><br>
+          <table class = "table_stats">
+            <!-- <h3>Popularity by Number of Posts</h3> -->
+            <tbody>
+              <tr>
+                <th>Table</th>
+                <th>id</th>
+              </tr>
+              <tr>
+                <td>User</td>
+                <td>10</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
       </div>
-
-      <!-- Your Information -->
-      <div class="col-sm-7 info" style="background-color: #e7e4e4; padding: 1em; border-radius: 25px; ">
-        <h3 style="padding-bottom:.25em; color:#4f676c;">Your Information</h3>
-        <!-- Flex -->
-        <div class="flex_post">
-            <div class = "post">
-                <img src="images/frog_kitchen.jpeg" alt="..." class="img-thumbnail">
-            </div>
-
-            <form class = "post" method="POST" action="...">
-                <legend>@froglover97</legend>
-                <fieldset>
-                    <p class="post_knot">
-                        <legend>username</legend>
-                        <input type="text" name = "user" minlength="8" maxlength="32" value="froglover97">
-                    </p>
-                    <p class="post_knot">
-                        <legend>email</legend>
-                        <input type="email" name = "email" value="froglover97@frog.frog">
-                    </p>
-                    <p class="post_knot">
-                        <legend>User Image</legend>
-                        <input type="file" name = "user_image">
-                    </p>
-                    <p>
-                        <input type="submit" value="Submit">
-                    </p>
-                </fieldset>
-            </form>
-            <br>
-
-            <form class = "post" method="POST" action="...">
-                <!-- <legend>@froglover97</legend> -->
-                <fieldset>
-                    <p>
-                        <input type="submit" value="Change Password">
-                    </p>
-                </fieldset>
-            </form>
-
-      </div>
-
     </div>
-
   </div>
   
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="./bootstrap/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script src="../bootstrap/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>
