@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+    <title>Rebbit - Frogs 24/7</title>
+</head>
+<!-- Custom Styling-->
+<style>
+    body{
+        background-color: #d9eee3;
+        margin: 0.25em; 
+    }
+    .flex_post{
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: flex-start;
+        background-color: #f1f0f0;
+        overflow: auto;
+        border-radius: 25px;
+        margin-top: 8px;
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-bottom: 10px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+    .post_info{
+        padding: 10px;
+        max-height: 400px;
+        flex-basis: 400px;
+    }
+    .post_desc{
+        color: #50504e;
+        font-size: small;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        max-height: 150px;
+        overflow: hidden;
+    }
+    .post_title{
+        color: #50504e;
+        font-weight: 200;
+        display: inline;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+    .post_knot{
+        font-weight: 600;
+        color: #4f676c;
+        font-family: 'Courier New', Courier, monospace;
+        margin-top: 2px;
+        font-size: small;
+    }
+    .post_date{
+        font-family: 'Courier New', Courier, monospace;
+        font-size: smaller;
+        display: inline;
+        color: #5b767c ;
+    }
+    .post_upvote{
+        flex-basis: 60px;
+        min-width: 40px;
+        margin: auto;
+    }
+    
+    .post_img{
+        min-width: 80px;
+        max-width: 200px;
+        margin: auto;
+    }
+    .comment_button{
+        max-height: 30px;
+        padding-left: 100px;
+    }
+    .post_upvote{
+        min-height: 30px;
+        max-width: 60px;
+        margin: auto;
+        padding: 10px;
+    }
+    .comment_button{
+        max-height: 30px;
+        padding-left: 50px;
+    }
+    
+    h2{
+        color:#5b767c;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin-right: 20px;
+        margin-left: 20px;
+    }
+    /* width */
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #d9eee3; 
+        border-radius: 10px;
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #a8d1ca; 
+        border-radius: 10px;
+    }
+    
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #b8dbd5; 
+    }
+</style>
+
+<!--BODY-->
+<body>
+    <!--NAVIGATION BAR-->
+    <nav style="background-color: #d9eee3" class="navbar navbar-expand-lg navbar-light " >
+        <a class="navbar-brand" href="index.html">
+            <img src="images/graphics/rebbit.png" width="115" height="30" alt="rebbit">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"> <!-- active indicates that this is our current page, to be modified after responsive links addded -->
+                    <!-- Get username -->
+                    <a class="nav-link" href="#user/froglover97">@froglover97</a>
+                    <!-- For "current" addition on particular page: <span class="sr-only">(current)</span> -->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#login">login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">about rebbit</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        explore
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#following">your knots</a>
+                        <a class="dropdown-item" href="#popular">popular knots</a>
+                    </div>
+                </li>
+            </ul>
+            <!-- Search bar-->
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="hop on" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">search</button>
+            </form>
+        </div>
+    </nav>
+    
+    <div class="posts">
+        <h2>/frog_kitchenware</h1>
+            <div class="posts">
+                <div class="flex_post">
+                    <!-- Post styling -->
+                    <div class="post">
+                        <img src="images/frog_mug2.jpeg" alt="..." class="img-thumbnail post_img" >
+                        <div class="post_info">
+                            <p class="post_title">Frog Mug</p>
+                            <img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >
+                            <p class="post_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum dui faucibus in ornare quam viverra. Cursus mattis molestie a iaculis at erat pellentesque. Aliquet nibh praesent tristique magna sit amet purus gravida quis.</p>
+                            <p class="post_date">03-12-2020</p>
+                            <img src="./images/graphics/chat-icon.png" class="comment_button">
+                        </div>
+                    </div>
+                </div>
+                <div class="flex_post">
+                    <div class="post">
+                        <img src="images/frog_mug2.jpeg" alt="..." class="img-thumbnail post_img" >
+                        <div class="post_info">
+                            <p class="post_title">Frog Mug</p>
+                            <img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >
+                            <p class="post_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum dui faucibus in ornare quam viverra. Cursus mattis molestie a iaculis at erat pellentesque. Aliquet nibh praesent tristique magna sit amet purus gravida quis.</p>
+                            <p class="post_date">03-12-2020</p>
+                            <img src="./images/graphics/chat-icon.png" class="comment_button">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            <!-- Optional JavaScript -->
+            <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+            <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+            <script src="./bootstrap/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        </body>
+        
+        
