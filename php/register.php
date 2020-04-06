@@ -1,6 +1,9 @@
 <?php
 // Configuration file 
 require_once "config.php";
+
+// TODO: Add photo with registration
+// TODO: Add javascript verification
  
 // User name and password defined, left with empty variables 
 $user_name = $password = $confirm_password = "";
