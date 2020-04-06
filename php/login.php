@@ -10,6 +10,8 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
  
 // Include config file
 require_once "config.php";
+
+// TODO: Add javascript verification
  
 // Define variables and initialize with empty values
 $user_name = $password = "";
