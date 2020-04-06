@@ -87,7 +87,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     mysqli_close($link);
 }
 ?>
- 
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -95,13 +94,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    
-        <title>Rebbit - Frogs 24/7</title>
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <title>Rebbit - Your world of frogs</title>
     </head>
 
 <style>
-
 .form_rebbit{
     background-color: #4f676c;
     padding: 20px;
@@ -110,21 +107,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     border-radius: 25px;
     max-width: 600px;
 }
-
 .submit_btn{
     background-color: darkseagreen;
     border-color: #9eb9ab;
 }
-
 .submit_btn:hover{
     background-color: #9eb9ab;
     border-color: darkseagreen;
 }
-
 .rebbit_link{
     color: darkseagreen;
 }
-
 .rebbit_link:hover{
     color: #86e4aa;
 }
@@ -134,7 +127,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <body style="margin: 0.25em; background-color: #f1f0f0;">    <!-- NAVIGATION BAR-->
     <nav style="background-color: #f1f0f0" class="navbar navbar-expand-lg navbar-light " >
         <a class="navbar-brand" href="index.html">
-            <img src="images/graphics/rebbit.png" width="115" height="30" alt="rebbit">
+            <img src="../images/assets/rebbit.png" width="115" height="30" alt="rebbit">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -166,6 +159,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
     </nav>
 
+<div style="padding: 10px; padding-top: 2em;">
     <!-- Login Form -->
     <div class="wrapper form_rebbit">
         <h2>Login</h2>
@@ -190,6 +184,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </div>
             <p>Don't have an account? <a class="rebbit_link" href="register.php">Sign up</a></p>
         </form>
-    </div>    
+    </div>  
+</div>
+    
+      
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="../bootstrap/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    
 </body>
 </html>
