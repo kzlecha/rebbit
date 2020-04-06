@@ -1,6 +1,6 @@
 <?php
 // Configuration file 
-require_once "config.php";
+require_once "include/config.php";
  
 // User name and password defined, left with empty variables 
 $user_name = $password = $confirm_password = "";
