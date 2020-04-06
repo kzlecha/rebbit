@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  
   <title>Rebbit - Your world of frogs</title>
 </head>
-<!-- Custom styling -->
+
+<!-- Rebbit specific styling-->
 <style>
   body{
     background-color: #f1f0f0;
@@ -18,7 +18,6 @@
   .top_desc{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   }
-
   .post_info{
     margin-top: 0.4em;
     padding: 10px;
@@ -41,23 +40,27 @@
     color: #50504e;
     font-family: 'Courier New', Courier, monospace;
     margin-top: 2px;
-    font-size: 1em;
+    font-size: 0.8em;
   }
   .post_date{
     font-family: 'Courier New', Courier, monospace;
     font-size: small;
     color: #5b767c ;
   }
+  .post_img{
+    max-width: 400px;
+    min-width: 200px;
+  }
   .flex_post{
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    border-bottom: dashed 0.8px #4f676c;
+    padding: 20px;
+    background-color: rgb(79, 103, 108, 0.05);
   }
 
 </style>
 
-<!-- BODY -->
 <body>
   <!-- NAVIGATION BAR-->
   <nav style="background-color: #f1f0f0" class="navbar navbar-expand-lg navbar-light " >
@@ -99,12 +102,13 @@
   </nav>
   
 <!-- TODO: Fix column layout -->
-<div class="container-fluid">
+<!-- TODO: Add responsive text -->
+<div class="container-fluid post">
   <p style="color:#4f676c;"><i>Hello, @froglover97</i></p>
-  <h1 class="post_title">Anoures</h1>
+  <h2 class="post_title">Anoures</h2>
   <h3 class="post_knot">r/scientificFrogIllustrations</h3>
     <div class="container-fluid flex_post">
-      <div class="col">
+      <div class="col post_img">
         <img src="../images/test_images/Anoures.jpg" alt="..." class="img-thumbnail main_image post_knot">
       </div>
       <div class="col post_info">
@@ -117,11 +121,9 @@
         <p class="post_date">03-12-2020</p>
       </div>
   </div>
-
 </div>
 
 
-  
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
