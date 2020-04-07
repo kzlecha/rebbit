@@ -55,7 +55,8 @@ require_once "include/config.php";
     }
 </style>
 
-<body style="margin: 0.25em; background-color: #f1f0f0;">    <!-- NAVIGATION BAR-->
+<body style="margin: 0.25em; background-color: #f1f0f0;">    
+<!-- NAVIGATION BAR-->
     <?php
         require_once "include/navbar.php";
     ?>
