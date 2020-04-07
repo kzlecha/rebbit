@@ -6,23 +6,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title>Rebbit - Your world of frogs</title>
+    <title>Welcome to Rebbit!</title>
 </head>
 
 <style>
-    .welcome{
+    body{
+        background-image: linear-gradient(to bottom,#83e5a8, #6c9d8f);
+        background-repeat: no-repeat; 
+        background-color: #6c9d8f; 
+        padding: 20px;
+    }
+    .flex{
         display: flex;
         justify-content: center;
+        align-items: center;
+        width: 100%;
+        padding-top: 80px;
     }
 
+    .flex-horizontal-center{
+        justify-content: center;
+    }
+    .welcome-msg{
+        color:rgb(233, 248, 242);
+        padding-top: 15px;
+        text-align: center;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+    .welcome-link{
+        color: rgb(227, 235, 235, 0.98);
+        font-family: 'Courier New', Courier, monospace;
+        text-align: center;
+    }
+   .welcome-img{
+        max-height: 260px;
+        display: block;
+        margin: auto;
+        justify-content: center;
+        width: auto;
+    }
 
 </style>
 
-<body style="background-color: #4f676c; padding: 20px;">
-    <div class="welcome">
-        <div class="welcome_msg">
-            <img src="../images/assets/logo_small.png">
-
+<body>
+    <div class="flex">
+        <div class="flex-horizontal-center">
+            <img class="welcome-img" src="../images/assets/logo_small.png">
+            <h1 class="welcome-msg">Welcome to Rebbit</h1>
+            <div class= "row flex">
+                <div class="col btn">
+                    <button type="button" onclick="window.location.href = 'index.php';" class="btn btn-lg btn-outline-light welcome-link">explore</button>                </div>
+                </div>
+                <div class="col btn">
+                    <button type="button" onclick="window.location.href = 'about.php';" class="btn btn-lg btn-outline-light welcome-link">about</button>                </div>
+                </div>
         </div>
     </div>
 </body>
