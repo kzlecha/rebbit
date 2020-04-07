@@ -1,3 +1,9 @@
+<?php
+// Configuration file 
+require_once "include/config.php";
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -67,7 +73,10 @@
   .trending, .your_knots{
     max-height: 2000px;
   }
-  h1, h2, h3{
+  h1{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+  h2, h3{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   }
   
@@ -103,50 +112,12 @@
     padding-left: 50px;
   }
   
-  
-  
 </style>
 
-<!-- BODY -->
-<body>
-  <!-- NAVIGATION BAR-->
-  <nav style="background-color: #f1f0f0" class="navbar navbar-expand-lg navbar-light " >
-    <a class="navbar-brand" href="index.html">
-      <img src="../images/assets/rebbit.png" width="115" height="30" alt="rebbit">
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active"> <!-- active indicates that this is our current page, to be modified after responsive links addded -->
-          <!-- Get username -->
-          <a class="nav-link" href="#user/froglover97">@froglover97</a>
-          <!-- For "current" addition on particular page: <span class="sr-only">(current)</span> -->
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#login">login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#about">about rebbit</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            explore
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#following">your knots</a>
-            <a class="dropdown-item" href="#popular">popular knots</a>
-          </div>
-        </li>
-      </ul>
-      <!-- Search bar-->
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="hop on" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">search</button>
-      </form>
-    </div>
-  </nav>
+<body style="margin: 0.25em; background-color: #f1f0f0;">    <!-- NAVIGATION BAR-->
+    <?php
+        require_once "include/navbar.php";
+    ?>
   
   <!-- 2 column layout -->
   <div class="container-fluid">
@@ -169,7 +140,7 @@
               <img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >
               <p class="post_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum dui faucibus in ornare quam viverra. Cursus mattis molestie a iaculis at erat pellentesque. Aliquet nibh praesent tristique magna sit amet purus gravida quis.</p>
               <p class="post_date">03-12-2020</p>
-              <img src="../images/assets/chat-icon.png" class="comment_button">
+              <img src="./images/graphics/chat-icon.png" class="comment_button">
             </div>
           </div>
           
@@ -183,7 +154,7 @@
               <img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >
               <p class="post_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum dui faucibus in ornare quam viverra. Cursus mattis molestie a iaculis at erat pellentesque. Aliquet nibh praesent tristique magna sit amet purus gravida quis.</p>
               <p class="post_date">03-12-2020</p>
-              <img src="../images/graphics/chat-icon.png" class="comment_button">
+              <img src="./images/graphics/chat-icon.png" class="comment_button">
             </div>
           </div>
           <div class="post">
@@ -325,7 +296,6 @@
               <img src="./images/graphics/chat-icon.png" class="comment_button">
             </div>
           </div>
-          
           <div class="post">
             <p class="post_knot">r/frog_kitchenware</p>
             <img src="images/frog_mug2.jpeg" alt="..." class="img-thumbnail" >
@@ -337,7 +307,7 @@
               <img src="./images/graphics/chat-icon.png" class="comment_button">
             </div>
           </div>
-          
+        
           
         </div>
       </div>

@@ -35,8 +35,9 @@ require_once "include/config.php";
     }
     .welcome-msg{
         color:rgb(233, 248, 242);
-        padding-top: 15px;
+        padding-top: 10px;
         text-align: center;
+        font-weight: 600;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     }
     .welcome-link{
@@ -61,12 +62,14 @@ require_once "include/config.php";
             <h1 class="welcome-msg">Welcome to Rebbit</h1>
             <div class= "row flex">
                 <div class="col btn">
-                    <button type="button" onclick="window.location.href = 'index.php';" class="btn btn-lg btn-outline-light welcome-link">explore</button>                </div>
+                    <button type="button" onclick="window.location.href = 'index.php';" class="btn btn-lg btn-outline-light welcome-link">explore</button>               
                 </div>
                 <div class="col btn">
-                    <button type="button" onclick="window.location.href = 'about.php';" class="btn btn-lg btn-outline-light welcome-link">about</button>                </div>
+                    <button type="button" onclick="window.location.href = 'about.php';" class="btn btn-lg btn-outline-light welcome-link">about</button>             
                 </div>
         </div>
     </div>
 </body>
+
+
 </html>

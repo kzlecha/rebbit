@@ -1,3 +1,9 @@
+<?php
+// Configuration file 
+require_once "include/config.php";
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -49,41 +55,10 @@
     }
 </style>
 
-<body>
-    <!-- NAVIGATION BAR-->
-    <nav class="navbar navbar-expand-lg navbar-light nav_page" >
-        <a class="navbar-brand" href="index.html">
-            <img src="../images/assets/rebbit.png" width="115" height="30" alt="rebbit">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <!-- Get username -->
-                    <a class="nav-link" href="#user/username">@froglover97<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#about">about rebbit</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        explore
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#following">your knots</a>
-                        <a class="dropdown-item" href="#popular">popular knots</a>
-                    </div>
-                </li>
-            </ul>
-            <!-- Search bar-->
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="hop on" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">search</button>
-            </form>
-        </div>
-    </nav>
+<body style="margin: 0.25em; background-color: #f1f0f0;">    <!-- NAVIGATION BAR-->
+    <?php
+        require_once "include/navbar.php";
+    ?>
     
     <!--ABOUT-->
     <div class="container-fluid" style="padding: 20px;">
