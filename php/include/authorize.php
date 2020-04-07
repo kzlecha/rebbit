@@ -84,7 +84,7 @@ function is_admin($user_id){
 // determine if knot admin
 function is_knot_admin($user_id, $knot_id){
     /*
-    check to see if the given in user is an admine
+    check to see if the given in user is an admin
     */
 
     // prepare query
