@@ -33,7 +33,7 @@
                             if($loggedin){
                                 echo "<a class=\"dropdown-item\" href=\"following_knots.php\">your knots</a>";
                             }
-                        ?>g
+                        ?>
                         <a class="dropdown-item" href="popular_knots.php">popular knots</a>
                     </div>
                 </li>
