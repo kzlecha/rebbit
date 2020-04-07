@@ -29,9 +29,10 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <?php
-                            $loggedin = isset($_SESSION["loggedin"]) && $_SESSION["loggedin"];
-                            if($loggedin){
-                                echo "<a class=\"dropdown-item\" href=\"following_knots.php\">your knots</a>";
+                            if(isset($_SESSION["loggedin"])){
+                                if($_SESSION["loggedin"]){
+                                    echo "<a class=\"dropdown-item\" href=\"following_knots.php\">your knots</a>";
+                                }
                             }
                         ?>
                         <a class="dropdown-item" href="popular_knots.php">popular knots</a>
