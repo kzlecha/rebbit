@@ -2,16 +2,14 @@
 // Initialize the session
 session_start();
  
-// Check if the user is already logged in, if yes then redirect him to welcome page
+// Check if the user is already logged in, if yes then redirect them to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     header("location: welcome.php");
     exit;
 }
  
 // Include config file
-require_once "config.php";
-
-// TODO: Add javascript verification
+require_once "include/config.php";
  
 // Define variables and initialize with empty values
 $user_name = $password = "";
@@ -131,39 +129,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </style>
 
 <body style="margin: 0.25em; background-color: #f1f0f0;">    <!-- NAVIGATION BAR-->
-    <nav style="background-color: #f1f0f0" class="navbar navbar-expand-lg navbar-light " >
-        <a class="navbar-brand" href="index.html">
-            <img src="../images/assets/rebbit.png" width="115" height="30" alt="rebbit">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <!-- Get username -->
-                    <a class="nav-link" href="#user/username">@froglover97<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#about">about rebbit</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        explore
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#following">your knots</a>
-                        <a class="dropdown-item" href="#popular">popular knots</a>
-                    </div>
-                </li>
-            </ul>
-            <!-- Search bar-->
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="hop on" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">search</button>
-            </form>
-        </div>
-    </nav>
+    <?php
+        require_once "include/navbar.php";
+    ?>
 
 <div style="padding: 10px; padding-top: 2em;">
     <!-- Login Form -->

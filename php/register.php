@@ -1,9 +1,6 @@
 <?php
 // Configuration file 
-require_once "config.php";
-
-// TODO: Add photo with registration
-// TODO: Add javascript verification
+require_once "include/config.php";
  
 // User name and password defined, left with empty variables 
 $user_name = $password = $confirm_password = "";
@@ -15,7 +12,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Username validation 
     if(empty(trim($_POST["user_name"]))){
         $username_err = "Please create a username. ";
-    } else{
+    }elseif(strlen(trim($_POST["user_name"])) > 32) {
+        // Password must be greater than 8 char
+        $username_err = "Password must have less than 32 characters.";
+    }else{
         // Select statement of user_name
         $sql = "SELECT user_id FROM User WHERE user_name = ?";
         
