@@ -8,18 +8,20 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <?php
-                // display username if the user is loggedin
-                if(isset($_SESSION["loggedin"])){
-                    if($_SESSION["loggedin"]){
-                        echo "<li class=\"nav-item active\">";
-                        echo "<li class=\"nav-item active\">";
-                        echo "<a class=\"nav-link\" href=\"profile.php?user_name=".$_SESSION["user_name"]."\">".$_SESSION["user_name"]."<span class=\"sr-only\">(current)</span></a>";
-                        echo "</li>";
-                    }
+                // display username if the user is loggedin and login otherwise
+                $loggedin = isset($_SESSION["loggedin"]) && $_SESSION["loggedin"];
+                if($loggedin){
+                    echo "<li class=\"nav-item active\">";
+                    echo "<a class=\"nav-link\" href=\"profile.php?user_name=".$_SESSION["user_name"]."\">".$_SESSION["user_name"]."<span class=\"sr-only\">(current)</span></a>";
+                    echo "</li>";
+                }else{
+                    echo "<li class=\"nav-item\">";
+                    echo "<a class=\"nav-link\" href=\"login.php\">login</a>";
+                    echo "</li>";
                 }
                 ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="#about">about rebbit</a>
+                    <a class="nav-link" href="../html/about.html">about rebbit</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
