@@ -134,9 +134,9 @@ require_once "include/config.php";
             // LIMIT 25: keeps from being too much information
             // theoretically have scroll/multiple pages via javascript
 
-            $sql = "SELECT Knot.knot_id, knot_name, description, count(FollowingKnot.user_id) AS n_followers
-                    FROM Knot, FollowingKnot
-                    WHERE Knot.knot_id = FollowingKnot.knot_id
+            $sql = "SELECT k.knot_id as knot_id, knot_name, description, count(fk.user_id) AS n_followers
+                    FROM Knot AS k, FollowingKnot AS fk
+                    WHERE k.knot_id = fk.knot_id
                     GROUP BY knot_id
                     ORDER BY n_followers
                     LIMIT 25";
@@ -159,6 +159,11 @@ require_once "include/config.php";
       
     </div>
   </div>
+
+  <?php
+      // Close connection
+      mysqli_close($link);
+  ?>
   
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->

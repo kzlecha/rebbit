@@ -130,190 +130,98 @@ require_once "include/config.php";
         <!-- Your Knots -->
         <h3 style="padding-bottom:.25em; color:#50504e;">Your knots</h3>
         <!-- Flex -->
-        <div class="flex_post">
-          <!-- Post styling -->
-          <div class="post">
-            <p class="post_knot">r/frog_kitchenware</p>
-            <img src="images/frog_mug2.jpeg" alt="..." class="img-thumbnail" >
-            <div class="post_info">
-              <p class="post_title">Frog Mug</p>
-              <img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >
-              <p class="post_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum dui faucibus in ornare quam viverra. Cursus mattis molestie a iaculis at erat pellentesque. Aliquet nibh praesent tristique magna sit amet purus gravida quis.</p>
-              <p class="post_date">03-12-2020</p>
-              <img src="./images/graphics/chat-icon.png" class="comment_button">
-            </div>
-          </div>
-          
-          <!-- BEWARE: Scourge of posts coming shortly, all styling identical -->
-          
-          <div class="post">
-            <p class="post_knot">r/frog_kitchenware</p>
-            <img src="images/frog_mug2.jpeg" alt="..." class="img-thumbnail" >
-            <div class="post_info">
-              <p class="post_title">Frog Mug</p>
-              <img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >
-              <p class="post_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum dui faucibus in ornare quam viverra. Cursus mattis molestie a iaculis at erat pellentesque. Aliquet nibh praesent tristique magna sit amet purus gravida quis.</p>
-              <p class="post_date">03-12-2020</p>
-              <img src="./images/graphics/chat-icon.png" class="comment_button">
-            </div>
-          </div>
-          <div class="post">
-            <p class="post_knot">r/frog_kitchenware</p>
-            <img src="images/frog_mug2.jpeg" alt="..." class="img-thumbnail" >
-            <div class="post_info">
-              <p class="post_title">Frog Mug</p>
-              <img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >
-              <p class="post_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum dui faucibus in ornare quam viverra. Cursus mattis molestie a iaculis at erat pellentesque. Aliquet nibh praesent tristique magna sit amet purus gravida quis.</p>
-              <p class="post_date">03-12-2020</p>
-              <img src="./images/graphics/chat-icon.png" class="comment_button">
-            </div>
-          </div>
-          <div class="post">
-            <p class="post_knot">r/frog_kitchenware</p>
-            <img src="images/frog_mug2.jpeg" alt="..." class="img-thumbnail" >
-            <div class="post_info">
-              <p class="post_title">Frog Mug</p>
-              <img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >
-              <p class="post_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum dui faucibus in ornare quam viverra. Cursus mattis molestie a iaculis at erat pellentesque. Aliquet nibh praesent tristique magna sit amet purus gravida quis.</p>
-              <p class="post_date">03-12-2020</p>
-              <img src="./images/graphics/chat-icon.png" class="comment_button">
-            </div>
-          </div>
-          <div class="post">
-            <p class="post_knot">r/frog_kitchenware</p>
-            <img src="images/frog_mug2.jpeg" alt="..." class="img-thumbnail" >
-            <div class="post_info">
-              <p class="post_title">Frog Mug</p>
-              <img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >
-              <p class="post_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum dui faucibus in ornare quam viverra. Cursus mattis molestie a iaculis at erat pellentesque. Aliquet nibh praesent tristique magna sit amet purus gravida quis.</p>
-              <p class="post_date">03-12-2020</p>
-              <img src="./images/graphics/chat-icon.png" class="comment_button">
-            </div>
-          </div>
-          <div class="post">
-            <p class="post_knot">r/frog_kitchenware</p>
-            <img src="images/frog_mug2.jpeg" alt="..." class="img-thumbnail" >
-            <div class="post_info">
-              <p class="post_title">Frog Mug</p>
-              <img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >
-              <p class="post_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum dui faucibus in ornare quam viverra. Cursus mattis molestie a iaculis at erat pellentesque. Aliquet nibh praesent tristique magna sit amet purus gravida quis.</p>
-              <p class="post_date">03-12-2020</p>
-              <img src="./images/graphics/chat-icon.png" class="comment_button">
-            </div>
-          </div>
-        </div>
+        <?php
+
+            // LIMIT 10: keeps from being too much information
+            // theoretically have scroll/multiple pages via javascript
+
+            $sql = "SELECT k.knot_id AS knot_id, user_id, post_id, post_title, image_location, post_body, p.create_date AS pdate
+                    FROM Posts AS p, Knot AS k
+                    WHERE p.knot_id = k.knot_id
+                        AND knot_id IN(SELECT knot_id
+                                       FROM FollowingKnot
+                                       WHERE user_id = ?)
+                        AND knot_id NOT IN(SELECT knot_id
+                                           FROM BannedFromKnot
+                                           WHERE user_id = ?)
+                    LIMIT 10";
+
+            $query = mysqli_query($link, $sql) or die(mysqli_error($link));
+
+            echo '<div class="flex_post">';
+            while ($result = mysqli_fetch_array($query)){
+                // link to post
+                echo '<a href="post.php'.$result["post_id"].'">';
+                echo "<div class=\"post\">";
+                echo '<p class="post_knot">'.$result["knot_name"].'</p>';
+                echo '<img src="'.$result["image_location"].'" alt="'.$result["title"].'" class="img-thumbnail">';
+                echo '<div class="post_info">';
+                echo '<p class="post_title">'.$result["title"].'</p>';
+                echo '<img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >';
+                // REVIEW: do we want to maybe remove the description or limit the amount of text via JS?
+                // echo '<p class="post_desc">'.$result["description"]."</p>";
+                echo '<p class="post_date">'.$result["pdate"]."</p>";
+                echo '<img src="../images/assets/chat-icon.png" class="comment_button">';
+                echo "</div></div>";
+                echo '</a>';
+            }
+            echo "</div>";
+        ?>
+
       </div>
       <!-- Trending -->
       <div class="col-sm-6 trending overflow-auto" style="background-color: #e7e4e4; padding: 1em; border-radius: 25px; ">
         <h3 style="padding-bottom:.25em; color:#4f676c;">Trending</h3>
+
         <!-- Flex -->
-        <div class="flex_post">
-          <div class="post">
-            <p class="post_knot">r/frog_kitchenware</p>
-            <img src="images/frog_kitchen.jpeg" alt="..." class="img-thumbnail">
-            <div class="post_info">
-              <p class="post_title">Frog Mug</p>
-              <img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >
-              <p class="post_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum dui faucibus in ornare quam viverra. Cursus mattis molestie a iaculis at erat pellentesque. Aliquet nibh praesent tristique magna sit amet purus gravida quis.</p>
-              <p class="post_date">03-12-2020</p>
-              <img src="./images/graphics/chat-icon.png" class="comment_button">
-            </div>
-          </div>
-          <div class="post">
-            <p class="post_knot">r/frog_kitchenware</p>
-            <img src="images/frog_kitchen.jpeg" alt="..." class="img-thumbnail">
-            <div class="post_info">
-              <p class="post_title">Frog Mug</p>
-              <img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >
-              <p class="post_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum dui faucibus in ornare quam viverra. Cursus mattis molestie a iaculis at erat pellentesque. Aliquet nibh praesent tristique magna sit amet purus gravida quis.</p>
-              <p class="post_date">03-12-2020</p>
-              <img src="./images/graphics/chat-icon.png" class="comment_button">
-            </div>
-          </div>
-          <div class="post">
-            <p class="post_knot">r/frog_kitchenware</p>
-            <img src="images/frog_kitchen.jpeg" alt="..." class="img-thumbnail">
-            <div class="post_info">
-              <p class="post_title">Frog Mug</p>
-              <img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >
-              <p class="post_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum dui faucibus in ornare quam viverra. Cursus mattis molestie a iaculis at erat pellentesque. Aliquet nibh praesent tristique magna sit amet purus gravida quis.</p>
-              <p class="post_date">03-12-2020</p>
-              <img src="./images/graphics/chat-icon.png" class="comment_button">
-            </div>
-          </div>
-          <div class="post">
-            <p class="post_knot">r/frog_kitchenware</p>
-            <img src="images/frog_kitchen.jpeg" alt="..." class="img-thumbnail">
-            <div class="post_info">
-              <p class="post_title">Frog Mug</p>
-              <img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >
-              <p class="post_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum dui faucibus in ornare quam viverra. Cursus mattis molestie a iaculis at erat pellentesque. Aliquet nibh praesent tristique magna sit amet purus gravida quis.</p>
-              <p class="post_date">03-12-2020</p>
-              <img src="./images/graphics/chat-icon.png" class="comment_button">
-            </div>
-          </div>
-          <div class="post">
-            <p class="post_knot">r/frog_kitchenware</p>
-            <img src="images/frog_mug2.jpeg" alt="..." class="img-thumbnail" >
-            <div class="post_info">
-              <p class="post_title">Frog Mug</p>
-              <img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >
-              <p class="post_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum dui faucibus in ornare quam viverra. Cursus mattis molestie a iaculis at erat pellentesque. Aliquet nibh praesent tristique magna sit amet purus gravida quis.</p>
-              <p class="post_date">03-12-2020</p>
-              <img src="./images/graphics/chat-icon.png" class="comment_button">
-            </div>
-          </div>
-          <div class="post">
-            <p class="post_knot">r/frog_kitchenware</p>
-            <img src="images/frog_mug2.jpeg" alt="..." class="img-thumbnail" >
-            <div class="post_info">
-              <p class="post_title">Frog Mug</p>
-              <img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >
-              <p class="post_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum dui faucibus in ornare quam viverra. Cursus mattis molestie a iaculis at erat pellentesque. Aliquet nibh praesent tristique magna sit amet purus gravida quis.</p>
-              <p class="post_date">03-12-2020</p>
-              <img src="./images/graphics/chat-icon.png" class="comment_button">
-            </div>
-          </div>
-          <div class="post">
-            <p class="post_knot">r/frog_kitchenware</p>
-            <img src="images/frog_mug2.jpeg" alt="..." class="img-thumbnail" >
-            <div class="post_info">
-              <p class="post_title">Frog Mug</p>
-              <img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >
-              <p class="post_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum dui faucibus in ornare quam viverra. Cursus mattis molestie a iaculis at erat pellentesque. Aliquet nibh praesent tristique magna sit amet purus gravida quis.</p>
-              <p class="post_date">03-12-2020</p>
-              <img src="./images/graphics/chat-icon.png" class="comment_button">
-            </div>
-          </div>
-          <div class="post">
-            <p class="post_knot">r/frog_kitchenware</p>
-            <img src="images/frog_mug2.jpeg" alt="..." class="img-thumbnail" >
-            <div class="post_info">
-              <p class="post_title">Frog Mug</p>
-              <img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >
-              <p class="post_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum dui faucibus in ornare quam viverra. Cursus mattis molestie a iaculis at erat pellentesque. Aliquet nibh praesent tristique magna sit amet purus gravida quis.</p>
-              <p class="post_date">03-12-2020</p>
-              <img src="./images/graphics/chat-icon.png" class="comment_button">
-            </div>
-          </div>
-          <div class="post">
-            <p class="post_knot">r/frog_kitchenware</p>
-            <img src="images/frog_mug2.jpeg" alt="..." class="img-thumbnail" >
-            <div class="post_info">
-              <p class="post_title">Frog Mug</p>
-              <img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >
-              <p class="post_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fermentum dui faucibus in ornare quam viverra. Cursus mattis molestie a iaculis at erat pellentesque. Aliquet nibh praesent tristique magna sit amet purus gravida quis.</p>
-              <p class="post_date">03-12-2020</p>
-              <img src="./images/graphics/chat-icon.png" class="comment_button">
-            </div>
-          </div>
-        
-          
+        <?php
+
+            // LIMIT 10: keeps from being too much information
+            // theoretically have scroll/multiple pages via javascript
+
+            $sql = "SELECT k.knot_id AS knot_id, user_id, post_id, post_title, image_location, post_body, p.create_date AS pdate
+                    FROM Knot AS k, Post AS p
+                    WHERE k.knot_id = p.knot_id
+                        AND k.knotid IN (SELECT knot_id, count(user_id) AS n_followers
+                                         FROM FollowingKnot
+                                         GROUP BY knot_id
+                                         ORDER BY n_followers
+                                         LIMIT 10)";
+
+            $query = mysqli_query($link, $sql) or die(mysqli_error($link));
+
+            echo '<div class="flex_post">';
+            while ($result = mysqli_fetch_array($query)){
+                // link to 
+                echo '<a href="post.php'.$result["post_id"].'">';
+                echo "<div class=\"post\">";
+                echo '<p class="post_knot">'.$result["knot_name"].'</p>';
+                echo '<img src="'.$result["image_location"].'" alt="'.$result["title"].'" class="img-thumbnail">';
+                echo '<div class="post_info">';
+                echo '<p class="post_title">'.$result["title"].'</p>';
+                echo '<img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >';
+                // REVIEW: do we want to maybe remove the description or limit the amount of text via JS?
+                // echo '<p class="post_desc">'.$result["description"]."</p>";
+                echo '<p class="post_date">'.$result["pdate"]."</p>";
+                echo '<img src="../images/assets/chat-icon.png" class="comment_button">';
+                echo "</div></div>";
+                echo '</a>';
+            }
+
+            
+            echo "</div>";
+        ?>
+
         </div>
       </div>
     </div>
   </div>
   
+  <?php
+      // Close connection
+      mysqli_close($link);
+  ?>
+
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
