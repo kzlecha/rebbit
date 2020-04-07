@@ -2,6 +2,10 @@
     
     session_start();
 
+   // Include config file
+    require_once "include/config.php";
+
+
     // LIMIT 25: keeps from being too much information
     // theoretically have scroll/multiple pages
 
@@ -12,4 +16,15 @@
             ORDER BY n_followers
             LIMIT 25";
 
+    $query = mysqli_query($link, $sql) or die(mysqli_error($link));
+
+    echo '<table>';
+    while ($result = mysqli_fetch_array($query)){
+        echo "<tr>";
+        echo "<td>".$result["knot_name"]."</td>";
+        echo "<td>".$result["description"]."</td>";
+        echo "<td>".$result["n_followers"]."</td>";
+        echo "</tr>";
+    }
+    echo "</table>";
 ?>
