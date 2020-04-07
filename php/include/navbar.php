@@ -26,8 +26,14 @@
                         explore
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#following">your knots</a>
-                        <a class="dropdown-item" href="#popular">popular knots</a>
+                        <?php
+                            if(isset($_SESSION["loggedin"])){
+                                if($_SESSION["loggedin"]){
+                                    echo "<a class=\"dropdown-item\" href=\"following_knots.php\">your knots</a>";
+                                }
+                            }
+                        ?>
+                        <a class="dropdown-item" href="popular_knots.php">popular knots</a>
                     </div>
                 </li>
             </ul>

@@ -57,20 +57,10 @@ function login_verified($user_name, $password){
 
 }
 
-function is_admin(){
+function is_admin($user_id){
     /*
-    check to see if the logged in user is an admine
+    check to see if the given in user is an admine
     */
-
-    if(!isset($_SESSION["loggedin"])){
-        // if the user is not logged in, redirect to login page
-        return false;
-    }
-
-    if(!isset($_SESSION["user_id"])){
-        // this should never happen if the user is not logged in but to ensure that no execeptions occur
-        return false;
-    }
 
     // prepare query
     $sql = "SELECT user_id FROM Admin WHERE user_id = ?";
@@ -78,7 +68,7 @@ function is_admin(){
     if($stmt = mysqli_prepare($link, $sql)){
         // bind the parameters
         mysqli_stmt_bind_param($stmt, "s", $param_userid);
-        $param_userid = $_SESSION["user_id"];
+        $param_userid = $user_id;
         if(mysqli_stmt_num_rows($stmt) == 1){
             return true;
         }else{
@@ -90,5 +80,31 @@ function is_admin(){
     }
     
 }
+
+// determine if knot admin
+function is_knot_admin($user_id, $knot_id){
+    /*
+    check to see if the given in user is an admine
+    */
+
+    // prepare query
+    $sql = "SELECT user_id FROM KnotAdmin WHERE knot_id = ? and user_id = ?";
+    
+    if($stmt = mysqli_prepare($link, $sql)){
+        // bind the parameters
+        mysqli_stmt_bind_param($stmt, "s", $param_userid, $param_knotid);
+        $param_userid = $user_id;
+        $param_knotid = $knot_id;
+        if(mysqli_stmt_num_rows($stmt) == 1){
+            return true;
+        }else{
+            return false;
+        }
+    }else{
+        echo "an error occured, please try again";
+        return false;
+    }    
+}
+
 
 ?>
