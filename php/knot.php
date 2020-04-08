@@ -160,7 +160,7 @@ require_once "include/config.php";
         
             if($stmt = mysqli_prepare($link, $sql)){
                 // Bind variables to the prepared statement as parameters
-                mysqli_stmt_bind_param($stmt, "s", $param_userid);
+                mysqli_stmt_bind_param($stmt, "i", $param_userid);
                 
                 // Set parameters
                 $param_userid = $_SESSION["user_id"];
@@ -182,7 +182,7 @@ require_once "include/config.php";
         
                         if($stmt = mysqli_prepare($link, $sql)){
                             // Bind variables to the prepared statement as parameters
-                            mysqli_stmt_bind_param($stmt, "s", $param_userid, $param_knotname);
+                            mysqli_stmt_bind_param($stmt, "is", $param_userid, $param_knotname);
                             
                             // Set parameters
                             $param_userid = $_SESSION["user_id"];
@@ -222,13 +222,13 @@ require_once "include/config.php";
         
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_userid, $param_knotname);
+            mysqli_stmt_bind_param($stmt, "is", $param_userid, $param_knotname);
             $param_knotname = $_GET["knot_name"];
             
             if($stmt = mysqli_prepare($link, $sql)){
                 // Bind variables to the prepared statement as parameters
                 mysqli_stmt_bind_param($stmt, "i", $param_userid);
-                $param_userid = $_SESSION['user_id'];
+                $param_userid = $_SESSION["user_id"];
   
                 if(mysqli_stmt_execute($stmt)){
                   mysqli_stmt_bind_result($stmt, $post_id, $user_id, $post_title, $image_location, $post_body, $pdate);
