@@ -142,7 +142,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <title>Rebbit - Your world of frogs</title>
 </head>
 <style>
-
+    
+h1, h2, h3{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+} 
+p{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}  
 .form_rebbit{
     background-color: #4f676c;
     padding: 20px;
