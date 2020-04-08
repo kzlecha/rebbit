@@ -100,8 +100,14 @@ require_once "include/config.php";
         echo "<button type=\"button\" class=\"collapsible\">Comments</button>";
           echo "<div class=\"content\">";
           echo "<p class=\"post_desc\">" .$_GET["comment_body"]. "</p>";
-          echo "<p class=".GET["create_date"].">03-12-2020</p>";
+          echo "<p class=".$_GET["create_date"].">03-12-2020</p>";
         echo "</div>";
+
+      // IF LOGGED IN ADD COMMENT
+      if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+        
+      }
+
       echo "</div>"; 
     ?>
   
