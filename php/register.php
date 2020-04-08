@@ -145,31 +145,47 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <!-- JS form validation -->
 <script>
 function validateForm() {
-  var user = document.forms["register"]["username"].value;
-  if (user == "") {
+    // Check username
+  var userCheck = document.forms["register"]["username"].value;
+  if (userCheck == "") {
     alert("You must enter a username to register");
     return false;
   }
-  var pass = document.forms["register"]["password"].value;
-  if (pass == "") {
+    // Check password
+  var passCheck = document.forms["register"]["password"].value;
+  if (passCheck == "") {
     alert("You must enter a password to register");
     return false;
   }
-  var confirmPass = document.forms["register"]["confirm_password"].value;
-  if (confirmPass == "") {
+    // Check confirm password 
+  var confirmPassCheck = document.forms["register"]["confirm_password"].value;
+  if (confirmPassCheck == "") {
     alert("You must re-enter your password");
     return false;
   }
-  var email = document.forms["register"]["email"].value;
-  if (email == "") {
+    // Check email 
+  var emailCheck = document.forms["register"]["email"].value;
+  if (emailCheck == "") {
     alert("You must enter an email");
     return false;
   }
-  var confirmEmail = document.forms["register"]["confirm_email"].value;
-  if (confirmEmail == "") {
+    // Check confirm email 
+  var confirmEmailCheck = document.forms["register"]["confirm_email"].value;
+  if (confirmEmailCheck == "") {
     alert("You re-enter email");
     return false;
   }
+    // Check image 
+  var imgCheck = document.getElementById('img');
+  if(imgCheck.getAttribute('src') == "")
+  {
+    alert("Empty");
+  }
+  else
+  {
+    alert("Filled");
+  }
+}
 }
 </script>
 
@@ -227,8 +243,8 @@ p{
     <!-- Sign Up Form -->
     <div class="wrapper form_rebbit" style="padding-top: 40px; padding: 20px;">
         <h2>Sign Up</h2>
-        <p>Please create a username and password, as well register with an email and photo to create an account </p>
-        <form id="register" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <p>Please enter your email and create a username and password to create an account. </p>
+        <form id="register" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validateForm()" method="post">
             <div class="form-group row<?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                 <div class="col-md-6">
                     <label>Username</label>
@@ -262,6 +278,12 @@ p{
                     <label>Confirm Password</label>
                     <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>">
                     <span class="help-block"><?php echo $confirm_password_err; ?></span>
+                </div>
+            </div>
+        <!-- TODO: This photo is not yet going anywhere -->
+            <div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
+                <div class="col-md-6">
+                    <input type="file" id="img" name="img" accept="image/*">
                 </div>
             </div>
             <div class="form-group col-md-6">
