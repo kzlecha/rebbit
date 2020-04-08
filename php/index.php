@@ -145,8 +145,7 @@ require_once "include/config.php";
                                        WHERE user_id = $userId)
                         AND knot_id NOT IN(SELECT knot_id
                                            FROM BannedFromKnot
-                                           WHERE user_id = $userId)
-                    LIMIT 10";
+                                           WHERE user_id = $userId)";
 
             if($stmt = mysqli_prepare($link, $sql)){
               // Bind variables to the prepared statement as parameters
@@ -198,11 +197,10 @@ require_once "include/config.php";
             $sql = "SELECT k.knot_id AS knot_id, user_id, post_id, post_title, image_location, post_body, p.create_date AS pdate
                     FROM Knot AS k, Post AS p
                     WHERE k.knot_id = p.knot_id
-                        AND k.knotid IN (SELECT knot_id, count(user_id) AS n_followers
+                        AND k.knot_id IN (SELECT knot_id
                                          FROM FollowingKnot
                                          GROUP BY knot_id
-                                         ORDER BY n_followers
-                                         LIMIT 10)";
+                                         ORDER BY count(user_id))";
 
             $query = mysqli_query($link, $sql) or die(mysqli_error($link));
 
