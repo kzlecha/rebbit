@@ -1,3 +1,4 @@
+  
 -- Rebbit Database
 
 -- create tables
@@ -112,5 +113,4 @@ CREATE TABLE CommentVote(
 -- Site Admin
 -- INSERT INTO Admin VALUES(1);
 -- INSERT INTO Admin VALUES(2);
-
 

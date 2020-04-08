@@ -9,7 +9,7 @@ $_SESSION = array();
 session_destroy();
 
 // set logged_in to be false
-$_SESSION["loggedin"] = false;
+// $_SESSION["loggedin"] = false;
  
 // Redirect to login page
 header("location: login.php");

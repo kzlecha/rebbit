@@ -19,7 +19,7 @@ $username_err = $password_err = "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
     // Check if username is empty
-    if(empty(trim($_POST["username"]))){
+    if(empty(trim($_POST["user_name"]))){
         $username_err = "Please enter username.";
     } else{
         $user_name = trim($_POST["user_name"]);
@@ -105,7 +105,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <script>
 function validateForm() {
     // Check username 
-  var userCheck = document.forms["login"]["username"].value;
+  var userCheck = document.forms["login"]["user_name"].value;
   if (userCheck == "") {
     alert("You must enter a username to login");
     return false;
@@ -165,7 +165,7 @@ p{
             <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                 <div class="col-md-6">
                     <label>Username</label>
-                    <input type="text" name="username" class="form-control" value="<?php echo $user_name; ?>">
+                    <input type="text" name="user_name" class="form-control" value="<?php echo $user_name; ?>">
                     <span class="help-block"><?php echo $username_err; ?></span>
                 </div>
             </div>    
