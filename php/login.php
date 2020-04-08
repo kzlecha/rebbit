@@ -102,6 +102,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <title>Rebbit - Your world of frogs</title>
     </head>
 
+<!-- JS form validation -->
+<script>
+function validateForm() {
+  var user = document.forms["login"]["username"].value;
+  if (user == "") {
+    alert("You must enter a username to login");
+    return false;
+  }
+  var pass = document.forms["login"]["password"].value;
+  if (pass == "") {
+    alert("You must enter a password to login");
+    return false;
+  }
+}
+</script>
+
 <style>
 h1, h2, h3{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -144,7 +160,7 @@ p{
     <div class="wrapper form_rebbit">
         <h2>Login</h2>
         <p>Please fill in your credentials to login.</p>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <form id="login" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                 <div class="col-md-6">
                     <label>Username</label>
