@@ -21,6 +21,12 @@ require_once "include/config.php";
     background-color: #f1f0f0;
     margin: 0.25em;
   }
+  h1, h2, h3{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  } 
+  p{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }  
   .top_desc{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   }
