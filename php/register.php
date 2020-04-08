@@ -74,7 +74,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(empty($password_err) && ($email != $confirm_email)){
             $confirm_email_err = "Email does not match.";
         }
-    }
     } else {
         // Prepare a select statement
         	$mystring = trim($_POST["confirm_email"]);
@@ -136,6 +135,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     // Close connection
     mysqli_close($link);
+}
 
 ?>
 
@@ -254,6 +254,7 @@ p{
         <h2>Sign Up</h2>
         <p>Please enter your email and create a username and password to create an account. </p>
         <form id="register" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validateForm()" method="post">
+            <!-- USERNAME -->
             <div class="form-group row<?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                 <div class="col-md-6">
                     <label>Username</label>
@@ -261,6 +262,7 @@ p{
                     <span class="help-block"><?php echo $username_err; ?></span>
                 </div>
             </div>    
+            <!-- EMAIL -->
             <div class="form-group row<?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
                 <div class="col-md-6">
                     <label>Email</label>
@@ -275,6 +277,7 @@ p{
                     <span class="help-block"><?php echo $confirm_email_err; ?></span>
                 </div>
             </div>
+            <!-- PASSWORD -->
             <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
                 <div class="col-md-6">
                     <label>Password</label>
