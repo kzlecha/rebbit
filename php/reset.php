@@ -132,7 +132,7 @@ function validateForm() {
     <div class="wrapper form_rebbit">
         <h2>Reset Password</h2>
         <p>Please enter a new password and confirm to reset your password.</p>
-        <form id="reset" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"> 
+        <form id="reset" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validateForm()" method="post"> 
             <div class="form-group <?php echo (!empty($new_password_err)) ? 'has-error' : ''; ?>">
                 <label>New Password</label>
                 <input type="password" name="new_password" class="form-control" value="<?php echo $new_password; ?>">
