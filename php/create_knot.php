@@ -67,7 +67,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
          
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ss", $param_knotname);
+            mysqli_stmt_bind_param($stmt, "s", $param_knotname);
             
             // Set parameters
             $param_knotname = $knot_name;
