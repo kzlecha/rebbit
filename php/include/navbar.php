@@ -31,13 +31,14 @@
                         explore
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="popular_knots.php">popular knots</a>
                         <?php
                             $loggedin = isset($_SESSION["loggedin"]) && $_SESSION["loggedin"];
                             if($loggedin){
                                 echo "<a class=\"dropdown-item\" href=\"following_knots.php\">your knots</a>";
+                                echo "<a class=\"dropdown-item\" href=\"forgot_password.php\">forgot password</a>";
                             }
                         ?>
-                        <a class="dropdown-item" href="popular_knots.php">popular knots</a>
                     </div>
                 </li>
             </ul>
