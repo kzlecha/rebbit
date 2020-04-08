@@ -74,7 +74,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(empty($password_err) && ($email != $confirm_email)){
             $confirm_email_err = "Email does not match.";
         }
-    }
     } else {
         // Prepare a select statement
         	$mystring = trim($_POST["confirm_email"]);
@@ -136,7 +135,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     // Close connection
     mysqli_close($link);
-
+    }
 ?>
 
 <!DOCTYPE html>
