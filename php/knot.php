@@ -236,13 +236,13 @@ require_once "include/config.php";
                 $param_userid = $_SESSION["user_id"];
   
                 if(mysqli_stmt_execute($stmt)){
-                  mysqli_stmt_bind_result($stmt, $post_id, $user_id, $post_title, $image_location, $post_body, $pdate);
+                  mysqli_stmt_bind_result($stmt, $post_id, $user_id, $post_title, $post_body, $image_location, $pdate);
                   echo '<div class="flex_post">';
                   while (mysqli_stmt_fetch()){
                     //  Post styling 
                     echo '<a href="post.php?post_id='.$post_id.'">';
                     echo '<div class="post">';
-                    echo '<img src="../images/test_images/frog_mug2.jpeg" alt="..." class="img-thumbnail post_img" >';
+                    echo '<img src="../images/'.$image_location.'" alt="'.$post_title.'" class="img-thumbnail post_img" >';
                     echo '<div class="post_info">';
                     echo '<p class="post_title">'.$post_title.'</p>';
                     echo '<img src="../images/assets/UpvoteDownvote.png" alt="..." class="post_upvote" >';
