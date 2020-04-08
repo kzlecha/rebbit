@@ -105,13 +105,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <!-- JS form validation -->
 <script>
 function validateForm() {
-  var user = document.forms["login"]["username"].value;
-  if (user == "") {
+    // Check username 
+  var userCheck = document.forms["login"]["username"].value;
+  if (userCheck == "") {
     alert("You must enter a username to login");
     return false;
   }
-  var pass = document.forms["login"]["password"].value;
-  if (pass == "") {
+    // Check password
+  var passCheck = document.forms["login"]["password"].value;
+  if (passCheck == "") {
     alert("You must enter a password to login");
     return false;
   }
