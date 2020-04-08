@@ -84,13 +84,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <!-- JS form validation -->
 <script>
 function validateForm() {
-  var newPass = document.forms["reset"]["new_password"].value;
-  if (newPass == "") {
+    // Check new password
+  var newPassCheck = document.forms["reset"]["new_password"].value;
+  if (newPassCheck == "") {
     alert("Password must be filled out");
     return false;
   }
-  var newPassConfirm = document.forms["reset"]["confirm_password"].value;
-  if (newPassConfirm == "") {
+    // Check new confirm password
+  var newPassConfirmCheck = document.forms["reset"]["confirm_password"].value;
+  if (newPassConfirmCheck == "") {
     alert("You must confirm password to continue");
     return false;
   }
