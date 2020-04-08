@@ -9,7 +9,7 @@ $username_err = $password_err = $confirm_password_err = $email_err = $confirm_em
 // When form is submitted process the data 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
-// TODO: Add photo option and js validation 
+ // TODO: Add photo option and js validation 
 
     // Username validation 
     if(empty(trim($_POST["user_name"]))){
@@ -51,7 +51,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty(trim($_POST["confirm_email"]))){
         // Cannot be left empty
         $email_err = "Please enter an email.";   
-    } elseif(!eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $email)){ 
+    } elseif(!eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $conrim_email)){ 
         // Password must contain at least one number
         $confirm_email_err = "Please enter a valid email.";
     } else{
