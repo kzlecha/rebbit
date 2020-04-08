@@ -9,8 +9,8 @@ require_once "include/config.php";
 //$confirm_email = $_POST['confirm_email'] ?? ''; $confirm_email_err = $_POST['confirm_email_err'] ?? '';
 
 // Username, password, and email created as empty variables 
-$user_name = $password = $confirm_password = $email = $confirm_email = "";
-$username_err = $password_err = $confirm_password_err = $email_err = $confirm_email_err = "";
+$user_name = $password = $confirm_password = $email = $confirm_email = $img_location = "";
+$username_err = $password_err = $confirm_password_err = $email_err = $confirm_email_err = $img_location_err = "";
 
 // When form is submitted process the data 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -103,6 +103,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(empty($password_err) && ($password != $confirm_password)){
             $confirm_password_err = "Password did not match.";
         }
+    }
+
+    // Validate image
+    if(empty(trim($_POST["img_location"]))){
+        $img_location_err = "Please upload image";     
+    } else{
+        $img_location = trim($_POST["img_location"]);
     }
     
     // Check input errors before inserting in database
@@ -291,10 +298,9 @@ p{
                     <span class="help-block"><?php echo $confirm_password_err; ?></span>
                 </div>
             </div>
-        <!-- TODO: This photo is not yet going anywhere -->
-            <div class="form-group" >
+            <div class="form-group <?php echo (!empty($img_location_err)) ? 'has-error' : ''; ?>">
                 <div class="col-md-6">
-                    <input type="file" id="img" name="img" accept="image/*">
+                    <input type="file" id="img" name="img_location" accept="image/*">
                 </div>
             </div>
             <div class="form-group col-md-6">
