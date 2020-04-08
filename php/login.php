@@ -19,7 +19,7 @@ $username_err = $password_err = "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
     // Check if username is empty
-    if(empty(trim($_POST["user_name"]))){
+    if(empty(trim($_POST["username"]))){
         $username_err = "Please enter username.";
     } else{
         $user_name = trim($_POST["user_name"]);
@@ -101,7 +101,29 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <title>Rebbit - Your world of frogs</title>
     </head>
 
+<!-- JS form validation -->
+<script>
+function validateForm() {
+  var user = document.forms["login"]["username"].value;
+  if (user == "") {
+    alert("You must enter a username to login");
+    return false;
+  }
+  var pass = document.forms["login"]["password"].value;
+  if (pass == "") {
+    alert("You must enter a password to login");
+    return false;
+  }
+}
+</script>
+
 <style>
+h1, h2, h3{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+} 
+p{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}  
 .form_rebbit{
     background-color: #4f676c;
     padding: 20px;
@@ -137,7 +159,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <div class="wrapper form_rebbit">
         <h2>Login</h2>
         <p>Please fill in your credentials to login.</p>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <form id="login" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                 <div class="col-md-6">
                     <label>Username</label>

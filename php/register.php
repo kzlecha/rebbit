@@ -48,7 +48,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     // Validate email
-    if(empty(trim($_POST["confirm_email"]))){
+    if(empty(trim($_POST["email"]))){
+        // Cannot be left empty
+        $email_err = "Please enter an email.";   
+    } elseif(!eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $email)){ 
+        // Password must contain at least one number
+        $email_err = "Please enter a valid email.";  
+    } 
+
+    // Validate confirm email
+     if(empty(trim($_POST["confirm_email"]))){
         // Cannot be left empty
         $email_err = "Please enter an email.";   
     } elseif(!eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $confirm_email)){ 
@@ -60,16 +69,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(empty($password_err) && ($email != $confirm_email)){
             $confirm_email_err = "Email does not match.";
         }
-    }
-
-    // Validate confirm email
-    if(empty(trim($_POST["email"]))){
-        // Cannot be left empty
-        $email_err = "Please enter an email.";   
-    } elseif(!eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $email)){ 
-        // Password must contain at least one number
-        $email_err = "Please enter a valid email.";  
-    } 
+    }  
     
    // Validate password
     if(empty(trim($_POST["password"]))){
@@ -141,8 +141,46 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>Rebbit - Your world of frogs</title>
 </head>
+
+<!-- JS form validation -->
+<script>
+function validateForm() {
+  var user = document.forms["register"]["username"].value;
+  if (user == "") {
+    alert("You must enter a username to register");
+    return false;
+  }
+  var pass = document.forms["register"]["password"].value;
+  if (pass == "") {
+    alert("You must enter a password to register");
+    return false;
+  }
+  var confirmPass = document.forms["register"]["confirm_password"].value;
+  if (confirmPass == "") {
+    alert("You must re-enter your password");
+    return false;
+  }
+  var email = document.forms["register"]["email"].value;
+  if (email == "") {
+    alert("You must enter an email");
+    return false;
+  }
+  var confirmEmail = document.forms["register"]["confirm_email"].value;
+  if (confirmEmail == "") {
+    alert("You re-enter email");
+    return false;
+  }
+}
+</script>
+
 <style>
 
+h1, h2, h3{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+} 
+p{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}  
 .form_rebbit{
     background-color: #4f676c;
     padding: 20px;
@@ -189,8 +227,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <!-- Sign Up Form -->
     <div class="wrapper form_rebbit" style="padding-top: 40px; padding: 20px;">
         <h2>Sign Up</h2>
-        <p>Please create a username and password to create an account along with an email and photo to create an account. </p>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <p>Please create a username and password, as well register with an email and photo to create an account </p>
+        <form id="register" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group row<?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                 <div class="col-md-6">
                     <label>Username</label>
@@ -203,6 +241,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <label>Email</label>
                     <input type="text" name="email" class="form-control" value="<?php echo $email; ?>">
                     <span class="help-block"><?php echo $email_err; ?></span>
+                </div>
+            </div>
+            <div class="form-group <?php echo (!empty($confirm_email_err)) ? 'has-error' : ''; ?>">
+                <div class="col-md-6">
+                    <label>Confirm Email</label>
+                    <input type="password" name="confirm_email" class="form-control" value="<?php echo $confirm_email; ?>">
+                    <span class="help-block"><?php echo $confirm_email_err; ?></span>
                 </div>
             </div>
             <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">

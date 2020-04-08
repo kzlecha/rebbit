@@ -73,10 +73,8 @@ require_once "include/config.php";
   .trending, .your_knots{
     max-height: 2000px;
   }
-  h1{
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  }
-  h2, h3{
+
+  h1, h2, h3{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   }
   
@@ -114,15 +112,18 @@ require_once "include/config.php";
   
 </style>
 
-<body style="margin: 0.25em; background-color: #f1f0f0;">    <!-- NAVIGATION BAR-->
+<body style="margin: 0.25em; background-color: #f1f0f0;">    
+<!-- NAVIGATION BAR-->
     <?php
         require_once "include/navbar.php";
+
+        if(isset($_SESSION['user_name'])){
+          echo("<p style=\"color:#4f676c\"><i>Hello, ".$_SESSION['user_name']." </i></p>");
+        }
     ?>
   
   <!-- 2 column layout -->
   <div class="container-fluid">
-    <!-- Get username -->
-    <p style="color:#4f676c;"><i>Hello, @froglover97</i></p>
     <h1 style="padding-top: 1em; color:#4f676c;">Recent Activity</h1>
     <p class="top_desc">Hop to it partner. Also, the columns will automatically stack on top of each other when the screen is less than 768px wide.</p>
     <div class="row">
@@ -135,16 +136,16 @@ require_once "include/config.php";
 
             // LIMIT 10: keeps from being too much information
             // theoretically have scroll/multiple pages via javascript
-
+            $userId = $_SESSION['user_name'];            
             $sql = "SELECT k.knot_id AS knot_id, user_id, post_id, post_title, image_location, post_body, p.create_date AS pdate
                     FROM Posts AS p, Knot AS k
                     WHERE p.knot_id = k.knot_id
                         AND knot_id IN(SELECT knot_id
                                        FROM FollowingKnot
-                                       WHERE user_id = ?)
+                                       WHERE user_id = $userId)
                         AND knot_id NOT IN(SELECT knot_id
                                            FROM BannedFromKnot
-                                           WHERE user_id = ?)
+                                           WHERE user_id = $userId)
                     LIMIT 10";
 
             if($stmt = mysqli_prepare($link, $sql)){
@@ -193,7 +194,7 @@ require_once "include/config.php";
 
             // LIMIT 10: keeps from being too much information
             // theoretically have scroll/multiple pages via javascript
-
+            
             $sql = "SELECT k.knot_id AS knot_id, user_id, post_id, post_title, image_location, post_body, p.create_date AS pdate
                     FROM Knot AS k, Post AS p
                     WHERE k.knot_id = p.knot_id
