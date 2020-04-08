@@ -1,7 +1,7 @@
 <?php
+// Configuration file 
 
 session_start();
-
 require_once "include/config.php";
 
 ?>

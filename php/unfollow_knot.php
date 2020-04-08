@@ -14,7 +14,7 @@
     $user_id = $_SESSION["user_id"];
     $knot_id = $_GET["knot_id"];
 
-    $sql = "INSERT INTO FollowingKnot (user_id, knot_id, create_date) VALUES (?, ?, NOW())";
+    $sql = "DELETE FROM FollowingKnot WHERE user_id = ? AND knot_id = ?";
 
     if($stmt = mysqli_prepare($link, $sql)){
         // Bind variables to the prepared statement as parameters
@@ -38,7 +38,6 @@
 
     // Close connection
     mysqli_close($link);
-
 
 
 ?>

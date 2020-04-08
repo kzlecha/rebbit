@@ -154,7 +154,7 @@ require_once "include/config.php";
         echo "<h2>".$_GET["knot_name"]."</h2>";
 
         // display follow button or block user from admin
-        $loggedin = isset($_SESSION["loggedin"]) and $_SESSION["loggedin"];
+        $loggedin = isset($_SESSION["loggedin"]) and $_SESSION["loggedin"] === true;
         if ($loggedin){
             $sql = "SELECT user_id FROM BannedFromKnot where user_id = ?";
         
@@ -195,9 +195,9 @@ require_once "include/config.php";
 
                                 if(mysqli_stmt_num_rows($stmt) == 1){
                                     // if the user is following the knot, display the unfollow button
-                                    echo "<p><a class=\"rebbit_link\" href=\"unfollow_knot.php?knot_id=".$knot_id."&user_id=".$user_id."\">Unfollow</a></p>";
+                                    echo "<p><a class=\"rebbit_link\" href=\"unfollow_knot.php?knot_id=".$knot_id."\">Unfollow</a></p>";
                                 }else{
-                                    echo "<p><a class=\"rebbit_link\" href=\"follow_knot.php?knot_id=".$knot_id."&user_id=".$user_id."\">Follow</a></p>";
+                                    echo "<p><a class=\"rebbit_link\" href=\"follow_knot.php?knot_id=".$knot_id."\">Follow</a></p>";
                                 }
                             }
 
@@ -221,7 +221,6 @@ require_once "include/config.php";
                 FROM Knot AS k, Post AS p
                 WHERE k.knot_id = p.knot_id
                     AND k.knot_name = ?
-                LIMIT 30
                 ";
 
         echo '<div class="flex_post">';
@@ -237,13 +236,13 @@ require_once "include/config.php";
                 $param_userid = $_SESSION["user_id"];
   
                 if(mysqli_stmt_execute($stmt)){
-                  mysqli_stmt_bind_result($stmt, $post_id, $user_id, $post_title, $image_location, $post_body, $pdate);
+                  mysqli_stmt_bind_result($stmt, $post_id, $user_id, $post_title, $post_body, $image_location, $pdate);
                   echo '<div class="flex_post">';
                   while (mysqli_stmt_fetch()){
                     //  Post styling 
                     echo '<a href="post.php?post_id='.$post_id.'">';
                     echo '<div class="post">';
-                    echo '<img src="../images/test_images/frog_mug2.jpeg" alt="..." class="img-thumbnail post_img" >';
+                    echo '<img src="../images/'.$image_location.'" alt="'.$post_title.'" class="img-thumbnail post_img" >';
                     echo '<div class="post_info">';
                     echo '<p class="post_title">'.$post_title.'</p>';
                     echo '<img src="../images/assets/UpvoteDownvote.png" alt="..." class="post_upvote" >';
