@@ -69,37 +69,59 @@ require_once "include/config.php";
 
 </style>
 
-<!-- TODO: Add functional navigation bar -->
-
-<!--BODY-->
 <body>
     <!--NAVIGATION BAR-->
     <?php
         require_once "include/navbar.php";
     ?>
-  
-<div class="container-fluid post">
-  <p style="color:#4f676c;"><i>Hello, @froglover97</i></p>
-  <h2 class="post_title">Anoures</h2>
-  <h3 class="post_knot">r/scientificFrogIllustrations</h3>
-    <div class="container-fluid flex_post">
-      <div class="col post_img">
-        <img src="../images/test_images/Anoures.jpg" alt="..." class="img-thumbnail main_image post_knot">
-      </div>
-      <div class="col post_info">
-        <p class="post_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-          incididunt ut labore et dolore magna aliqua. 
-          Fermentum dui faucibus in ornare quam viverra. 
-          Cursus mattis molestie a iaculis at erat pellentesque. 
-          Aliquet nibh praesent tristique magna sit 
-          amet purus gravida quis.</p>
-        <p class="post_date">03-12-2020</p>
-      </div>
-  </div>
-</div>
 
-<!-- TODO: Add comment section -->
-<!-- TODO: Add footer -->
+    <!-- USER POST + COMMENTS -->
+    <?php 
+        echo "<div class=\"container-fluid post\"";
+        if(isset($_SESSION['user_name'])){
+          echo("<p style=\"color:#4f676c\"><i>Hello, ".$_SESSION['user_name']." </i></p>");
+        }
+
+        // POST
+        echo "<h2 class=\"post_title\">".$_GET["post_title"]."</h2>";
+        echo "<h3 class=\"post_knot\">".$_GET["knot_name"]."</h3>";
+        echo "<div class=\"container-fluid flex_post\"";
+          echo "<div class=\"col post_img\"";
+          echo "<img src=".$GET["img_location"]."alt=\"post image\" class=\"img-thumbnail main_image post_knot\">";
+          echo "</div>";
+          echo "<div class=\"col post_info\">";
+            echo "<p class=\"post_desc\">" .$_GET["post_body"];
+            echo "</p>";
+            echo "<p class=\"post_date\">".$_GET["create_date"]."</p>";
+          echo "</div>";
+        echo "</div>";
+
+        // COMMENTS
+        echo "<button type=\"button\" class=\"collapsible\">Comments</button>";
+          echo "<div class=\"content\">";
+          echo "<p class=\"post_desc\">" .$_GET["comment_body"]. "</p>";
+          echo "<p class=".GET["create_date"].">03-12-2020</p>";
+        echo "</div>";
+      echo "</div>"; 
+    ?>
+  
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->

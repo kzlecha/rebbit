@@ -104,21 +104,33 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $confirm_password_err = "Password did not match.";
         }
     }
+
+    
+    // Validate image
+    //if(empty(trim($_POST["img_location"]))){
+       // $img_location_err = "Please upload image";     
+    //} else{
+       // $img_location = trim($_POST["img_location"]);
+    //}
     
     // Check input errors before inserting in database
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err) && empty($confirm_email_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO User (user_name, password, email) VALUES (?, ?, ?)";
-         
+        //$sql = "INSERT INTO User (user_name, password, email, img_location) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO User (user_name, password, email, img_location) VALUES (?, ?, ?)";
+
+
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "sss", $param_username, $param_password, $param_email);
-            
+            //mysqli_stmt_bind_param($stmt, "sssb", $param_username, $param_password, $param_email, $param_img);
+
             // Set parameters
             $param_username = $user_name;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash 
             $param_email = $email;
+            //$param_img = $img_location;
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
@@ -179,7 +191,7 @@ function validateForm() {
     // Check confirm email 
   var confirmEmailCheck = document.forms["register"]["confirm_email"].value;
   if (confirmEmailCheck == "") {
-    alert("You re-enter email");
+    alert("Re-enter email");
     return false;
   }
     // Check image 
@@ -284,6 +296,7 @@ p{
                     <span class="help-block"><?php echo $password_err; ?></span>
                 </div>
             </div>
+            <!-- CONFIRM PASSWORD -->
             <div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
                 <div class="col-md-6">
                     <label>Confirm Password</label>
@@ -291,12 +304,13 @@ p{
                     <span class="help-block"><?php echo $confirm_password_err; ?></span>
                 </div>
             </div>
-        <!-- TODO: This photo is not yet going anywhere -->
-            <div class="form-group" >
+            <!-- IMAGE -->
+            <div class="form-group">
                 <div class="col-md-6">
                     <input type="file" id="img" name="img" accept="image/*">
                 </div>
             </div>
+            <!-- SUBMIT -->
             <div class="form-group col-md-6">
                 <input type="submit" class="btn btn-primary submit_btn" value="Submit">
             </div>
