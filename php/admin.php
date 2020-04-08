@@ -143,7 +143,7 @@
     <p class="top_desc">Hop to it partner. Search for posts and users or view website statistics.</p>
     <div class="row">
         <!-- Search -->
-        <div class="col-sm-6 overflow-auto your_knots" style="background-color: #b7d6c6; padding: 1em; border-radius: 25px;" >
+        <div class="col-sm-4 overflow-auto your_knots" style="background-color: #b7d6c6; padding: 1em; border-radius: 25px;" >
             <div class="wrapper form_rebbit">
             <h2>Search</h2>
             <p>Please enter the relevant information for search.</p>
@@ -165,31 +165,34 @@
                 </div>
             </form>
             </div>  
+
         </div>
         <!-- usage -->
-        <div class = "col-sm-6 cite_stats overflow-auto" style="background-color: #e7e4e4; padding: 1em; border-radius: 25px; ">
+        <div class = "col-sm-4 cite_stats overflow-auto" style="background-color: #e7e4e4; padding: 1em; border-radius: 25px; ">
             <div class="wrapper form_rebbit">
-            <h2>Rebbit Statistics</h2>
-            <p>Please enter the Statistics you wish to see.</p>
-            <form id="admin_stat" action="admin_stats.php" method="post">
-                <div class="form-group">
-                    <label>Keyword</label>
-                    <input type="text" name="keyword" class="form-control" placeholder="Enter the keyword or phrase" >
-                </div>    
-                <div class="form-group">
-                    <label>Type</label>
-                    <select name="search_type" class="form-control">
-                        <option>username</option>
-                        <option>email</option>
-                        <option>post title</option>
-                    </select>
-                </div> 
-                <div class="form-group">
-                    <input type="submit" class="btn btn-primary submit_btn" value="Search">
-                </div>
-            </form>
-            </div>  
-
+                <h2>Rebbit Statistics</h2>
+                <p>Please enter the Statistics you wish to see.</p>
+                <form id="admin_stat" action="admin_stats.php" method="post">
+                    <div class="form-group">
+                        <label>Keyword</label>
+                        <input type="text" name="keyword" class="form-control" placeholder="Enter the keyword or phrase" >
+                    </div>    
+                    <div class="form-group">
+                        <label>Type</label>
+                        <select name="search_type" class="form-control">
+                            <option>username</option>
+                            <option>email</option>
+                            <option>post title</option>
+                        </select>
+                    </div> 
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary submit_btn" value="Search">
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+        <div class="col-sm-4 overflow-auto your_knots" style="background-color: #b7d6c6; padding: 1em; border-radius: 25px;" >
             <div class="wrapper form_rebbit">
             <h2>Restore Soft Deletes</h2>
             <p>This feature is not yet implemented.</p>
