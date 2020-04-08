@@ -209,6 +209,12 @@ require_once "include/config.php";
             }
         }
 
+        if ($loggedin){
+            // if the user is logged in, they can make a post
+            echo "<p><a class=\"rebbit_link\" href=\"create_post.php?knot_id=".$knot_id."&user_id=".$user_id."\">Create Post</a></p>";
+        }
+
+
         echo "<div>";
 
         $sql = "SELECT post_id, user_id, post_title, post_body, post_title, image_location, p.create_date as pdate

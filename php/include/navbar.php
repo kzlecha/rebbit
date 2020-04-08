@@ -14,6 +14,9 @@
                     echo "<li class=\"nav-item active\">";
                     echo "<a class=\"nav-link\" href=\"profile.php?user_name=".$_SESSION["user_name"]."\">".$_SESSION["user_name"]."<span class=\"sr-only\">(current)</span></a>";
                     echo "</li>";
+                    echo "<li class=\"nav-item\">";
+                    echo "<a class=\"nav-link\" href=\"logout.php\">logout</a>";
+                    echo "</li>";
                 }else{
                     echo "<li class=\"nav-item\">";
                     echo "<a class=\"nav-link\" href=\"login.php\">login</a>";

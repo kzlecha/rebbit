@@ -1,3 +1,4 @@
+  
 -- Rebbit Database
 
 -- create tables
@@ -112,5 +113,4 @@ INSERT INTO User(user_name, password, email) VALUES ('froglover97', MD5('ilovefr
 -- Site Admin
 -- INSERT INTO Admin VALUES(1);
 -- INSERT INTO Admin VALUES(2);
-
 
