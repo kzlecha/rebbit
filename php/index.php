@@ -181,7 +181,7 @@ require_once "include/config.php";
             echo '</div>';
             echo '<div class="col-sm-6 trending overflow-auto" style="background-color: #e7e4e4; padding: 1em; border-radius: 25px; ">';
         }else{
-          echo '<div class="col-sm-12 trending overflow-auto" style="background-color: #e7e4e4; padding: 1em; border-radius: 25px; ">'
+          echo '<div class="col-sm-12 trending overflow-auto" style="background-color: #e7e4e4; padding: 1em; border-radius: 25px; ">';
         }
 
         ?>
