@@ -40,7 +40,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 if(mysqli_stmt_num_rows($stmt) == 1){
                     $username_err = "Sorry, this username is already taken.";
                 } else{
-                    $username = trim($_POST["user_name"]);
+                    $user_name = trim($_POST["user_name"]);
                 }
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
@@ -256,7 +256,7 @@ p{
             <div class="form-group row<?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                 <div class="col-md-6">
                     <label>Username</label>
-                    <input type="text" name="username" class="form-control" value="<?php echo $user_name; ?>">
+                    <input type="text" name="user_name" class="form-control" value="<?php echo $user_name; ?>">
                     <span class="help-block"><?php echo $username_err; ?></span>
                 </div>
             </div>    
