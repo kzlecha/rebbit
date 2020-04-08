@@ -14,17 +14,16 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false){
 // User name and password defined, left with empty variables 
 $knot_name = "";
 $knot_err = "";
-// $username_err = $password_err = $knot_err = "";
  
 // When form is submitted process the data 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
     // Username validation 
     if(empty(trim($_POST["knot_name"]))){
-        $username_err = "Please create a knot name. ";
+        $knot_err = "Please create a knot name. ";
     }elseif(strlen(trim($_POST["knot_name"])) > 64) {
         // Password must be greater than 8 char
-        $username_err = "Knot Name must have less than 64 characters.";
+        $knot_err = "Knot Name must have less than 64 characters.";
     }else{
         // Select statement of user_name
         $sql = "SELECT knot_id FROM Knot WHERE knot_name = ?";
@@ -42,9 +41,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 mysqli_stmt_store_result($stmt);
                 
                 if(mysqli_stmt_num_rows($stmt) == 1){
-                    $username_err = "Sorry, this knot is already taken.";
+                    $knot_err = "Sorry, this knot is already taken.";
                 } else{
-                    $username = trim($_POST["knot_name"]);
+                    $knot_name = trim($_POST["knot_name"]);
                 }
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
@@ -60,7 +59,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // $valid_user = login_verified($_POST["username"], $_POST["password"]);
     
     // Check input errors before inserting in database
-    if(empty($confirm_password_err)){
+    if(empty($knot_err)){
         
         // Prepare an insert statement
         $sql = "INSERT INTO knot (knot_name) VALUES (?)";
