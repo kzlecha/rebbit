@@ -73,10 +73,8 @@ require_once "include/config.php";
   .trending, .your_knots{
     max-height: 2000px;
   }
-  h1{
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  }
-  h2, h3{
+
+  h1, h2, h3{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   }
   
@@ -114,12 +112,13 @@ require_once "include/config.php";
   
 </style>
 
-<body style="margin: 0.25em; background-color: #f1f0f0;">    <!-- NAVIGATION BAR-->
+<body style="margin: 0.25em; background-color: #f1f0f0;">    
+<!-- NAVIGATION BAR-->
     <?php
         require_once "include/navbar.php";
 
-        if(isset($_SESSION['authenticatedUser'])){
-          echo("<p style=\"color:#4f676c\"><i>Hello, ".$_SESSION['authenticatedUser']." </i></p>");
+        if(isset($_SESSION['user_name'])){
+          echo("<p style=\"color:#4f676c\"><i>Hello, ".$_SESSION['user_name']." </i></p>");
         }
     ?>
   
@@ -131,7 +130,6 @@ require_once "include/config.php";
       <div class="col-sm-6 overflow-auto your_knots overflow-auto" style="background-color: #b7d6c6; padding: 1em; border-radius: 25px;" >
         <!-- Your Knots -->
         <h3 style="padding-bottom:.25em; color:#50504e;">Your knots</h3>
-        <!-- Flex -->
         <?php
 
             // LIMIT 10: keeps from being too much information
