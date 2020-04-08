@@ -127,10 +127,12 @@ require_once "include/config.php";
     <h1 style="padding-top: 1em; color:#4f676c;">Recent Activity</h1>
     <p class="top_desc">Hop to it partner. Also, the columns will automatically stack on top of each other when the screen is less than 768px wide.</p>
     <div class="row">
-      <div class="col-sm-6 overflow-auto your_knots overflow-auto" style="background-color: #b7d6c6; padding: 1em; border-radius: 25px;" >
-        <!-- Your Knots -->
-        <h3 style="padding-bottom:.25em; color:#50504e;">Your knots</h3>
-        <?php
+      <?php
+      // YOUR KNOTS
+        $loggedin = isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true;
+        if($loggedin){
+            echo '<div class="col-sm-6 overflow-auto your_knots overflow-auto" style="background-color: #b7d6c6; padding: 1em; border-radius: 25px;" >';
+            echo '<h3 style="padding-bottom:.25em; color:#50504e;">Your knots</h3>';
 
             // LIMIT 10: keeps from being too much information
             // theoretically have scroll/multiple pages via javascript
@@ -146,31 +148,45 @@ require_once "include/config.php";
                                            WHERE user_id = $userId)
                     LIMIT 10";
 
-            $query = mysqli_query($link, $sql) or die(mysqli_error($link));
+            if($stmt = mysqli_prepare($link, $sql)){
+              // Bind variables to the prepared statement as parameters
+              mysqli_stmt_bind_param($stmt, "i", $param_userid);
+              $param_userid = $_SESSION['user_id'];
 
-            echo '<div class="flex_post">';
-            while ($result = mysqli_fetch_array($query)){
-                // link to post
-                echo '<a href="post.php'.$result["post_id"].'">';
-                echo "<div class=\"post\">";
-                echo '<p class="post_knot">'.$result["knot_name"].'</p>';
-                echo '<img src="'.$result["image_location"].'" alt="'.$result["title"].'" class="img-thumbnail">';
-                echo '<div class="post_info">';
-                echo '<p class="post_title">'.$result["title"].'</p>';
-                echo '<img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >';
-                // REVIEW: do we want to maybe remove the description or limit the amount of text via JS?
-                // echo '<p class="post_desc">'.$result["description"]."</p>";
-                echo '<p class="post_date">'.$result["pdate"]."</p>";
-                echo '<img src="../images/assets/chat-icon.png" class="comment_button">';
-                echo "</div></div>";
-                echo '</a>';
+              if(mysqli_stmt_execute($stmt)){
+                mysqli_stmt_bind_result($stmt, $knot_id, $user_id, $post_id, $post_title, $image_location, $post_body, $pdate);
+                echo '<div class="flex_post">';
+                while (mysqli_stmt_fetch()){
+                    // link to post
+                    echo '<a href="post.php?post_id='.$post_id.'">';
+                    echo "<div class=\"post\">";
+                    echo '<p class="post_knot">'.$knot_name.'</p>';
+                    echo '<img src="'.$image_location.'" alt="'.$result["title"].'" class="img-thumbnail">';
+                    echo '<div class="post_info">';
+                    echo '<p class="post_title">'.$title.'</p>';
+                    echo '<img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >';
+                    // REVIEW: do we want to maybe remove the description or limit the amount of text via JS?
+                    // echo '<p class="post_desc">'.$result["description"]."</p>";
+                    echo '<p class="post_date">'.$pdate."</p>";
+                    echo '<img src="../images/assets/chat-icon.png" class="comment_button">';
+                    echo "</div></div>";
+                    echo '</a>';
+                }
+                echo "</div>";
+              }
+            }else{
+              echo "sorry, an error has occured. Please try again later";
             }
-            echo "</div>";
+
+            echo '</div>';
+            echo '<div class="col-sm-6 trending overflow-auto" style="background-color: #e7e4e4; padding: 1em; border-radius: 25px; ">';
+        }else{
+          echo '<div class="col-sm-12 trending overflow-auto" style="background-color: #e7e4e4; padding: 1em; border-radius: 25px; ">'
+        }
+
         ?>
 
-      </div>
-      <!-- Trending -->
-      <div class="col-sm-6 trending overflow-auto" style="background-color: #e7e4e4; padding: 1em; border-radius: 25px; ">
+        <!-- TRENDING -->
         <h3 style="padding-bottom:.25em; color:#4f676c;">Trending</h3>
 
         <!-- Flex -->

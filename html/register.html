@@ -91,22 +91,22 @@
             <div class="form-group row<?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                 <div class="col-md-6">
                     <label>Username</label>
-                    <input type="text" name="username" class="form-control" value="<?php echo $user_name; ?>">
-                    <span class="help-block"><?php echo $username_err; ?></span>
+                    <input type="text" name="username" class="form-control" value="<user_name>">
+                    <span class="help-block"></span>
                 </div>
             </div>    
-            <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+            <div class="form-group">
                 <div class="col-md-6">
                     <label>Password</label>
-                    <input type="password" name="password" class="form-control" value="<?php echo $password; ?>">
-                    <span class="help-block"><?php echo $password_err; ?></span>
+                    <input type="password" name="password" class="form-control" value="password">
+                    <span class="help-block"><</span>
                 </div>
             </div>
-            <div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
+            <div class="form-group">
                 <div class="col-md-6">
                     <label>Confirm Password</label>
-                    <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>">
-                    <span class="help-block"><?php echo $confirm_password_err; ?></span>
+                    <input type="password" name="confirm_password" class="form-control" value="confirm_password">
+                    <span class="help-block"></span>
                 </div>
             </div>
             <div class="form-group col-md-6">

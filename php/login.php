@@ -63,7 +63,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["user_id"] = $user_id;
                             $_SESSION["user_name"] = $user_name;                            
                             
-                // TODO: Make welcome page
                             // Redirect user to welcome page
                             header("location: welcome.php");
                         } else{
