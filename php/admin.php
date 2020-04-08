@@ -161,6 +161,7 @@
                     </select>
                 </div> 
                 <div class="form-group">
+                    <input type="reset" class="btn btn-primary submit_btn" value="Reset">
                     <input type="submit" class="btn btn-primary submit_btn" value="Search">
                 </div>
             </form>
@@ -172,20 +173,14 @@
             <div class="wrapper form_rebbit">
                 <h2>Rebbit Statistics</h2>
                 <p>Please enter the Statistics you wish to see.</p>
-                <form id="admin_stat" action="admin_stats.php" method="post">
+                <form id="admin_stat" action="admin_stats.php" method="post"> 
                     <div class="form-group">
-                        <label>Keyword</label>
-                        <input type="text" name="keyword" class="form-control" placeholder="Enter the keyword or phrase" >
-                    </div>    
-                    <div class="form-group">
-                        <label>Type</label>
-                        <select name="search_type" class="form-control">
-                            <option>username</option>
-                            <option>email</option>
-                            <option>post title</option>
-                        </select>
+                        <label>Desired Statistics</label>
+                        <input type="checkbox" name="growth_by_day" class="form-control" value="Growth by Day"></input>
+                        <input type="checkbox" name="popular_knots" class="form-control" value="Most Popular Knots"></input>
                     </div> 
                     <div class="form-group">
+                        <input type="reset" class="btn btn-primary submit_btn" value="Reset">
                         <input type="submit" class="btn btn-primary submit_btn" value="Search">
                     </div>
                 </form>
@@ -200,6 +195,7 @@
             <!-- <form id="admin_soft_deletes" action="admin_soft_delete.php" method="post"> -->
             <form id="admin_soft_deletes" action="page_not_found.php" method="post">
                 <div class="form-group">
+                    <input type="reset" class="btn btn-primary submit_btn" value="Reset">
                     <input type="submit" class="btn btn-primary submit_btn" value="View Soft Deletes">
                 </div>
             </form>
