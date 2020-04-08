@@ -21,7 +21,7 @@ require_once "include/config.php";
     background-color: #f1f0f0;
     margin: 0.25em;
   }
-  h1, h2, h3{
+  h1, h2, h3, h4{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   } 
   p{
@@ -153,7 +153,7 @@ require_once "include/config.php";
             while ($result = mysqli_fetch_array($query)){
                 echo '<a href="knot.php?knot_name="'.$result["knot_name"].'">';
                 echo "<div class=\"post\">";
-                echo '<p class="post_title">'.$result["knot_name"].'</p>';
+                echo '<h4 class="post_title">'.$result["knot_name"].'</h4>';
                 echo '<p class="post_desc">'.$result["description"]."</p>";
                 echo '<p class="post_date">Number of Followers: '.$result["n_followers"]."</p>";
                 // <img src="../images/assets/chat-icon.png" class="comment_button">
