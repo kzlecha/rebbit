@@ -160,7 +160,7 @@ p{
     <div class="wrapper form_rebbit">
         <h2>Login</h2>
         <p>Please fill in your credentials to login.</p>
-        <form id="login" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <form id="login" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validateForm()" method="post">
             <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                 <div class="col-md-6">
                     <label>Username</label>
