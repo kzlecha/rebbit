@@ -3,12 +3,14 @@
 require_once "include/config.php";
  
 // User name and password defined, left with empty variables 
-$user_name = $password = $confirm_password = "";
-$username_err = $password_err = $confirm_password_err = "";
+$user_name = $password = $confirm_password = $email = $confirm_email = "";
+$username_err = $password_err = $confirm_password_err = $email_err = $confirm_email_err = "";
  
 // When form is submitted process the data 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
+// TODO: Add photo option and js validation 
+
     // Username validation 
     if(empty(trim($_POST["user_name"]))){
         $username_err = "Please create a username. ";
@@ -44,6 +46,29 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             mysqli_stmt_close($stmt);
         }
     }
+
+    // Validate email
+    if(empty(trim($_POST["confirm_email"]))){
+        // Cannot be left empty
+        $email_err = "Please enter an email.";   
+    } elseif(!eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $email)){ 
+        // Password must contain at least one number
+        $confirm_email_err = "Please enter a valid email.";
+    } else{
+        // Check if email matches 
+        $confirm_email = trim($_POST["confirm_email"]);
+        if(empty($password_err) && ($email != $confirm_email)){
+            $confirm_email_err = "Email does not match.";
+        }
+    }
+
+    // Validate confirm email
+    if(empty(trim($_POST["email"]))){
+        // Cannot be left empty
+        $email_err = "Please enter an email.";   
+    } elseif(!eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $email)){ 
+        // Password must contain at least one number
+        $email_err = "Please enter a valid email.";   
     
    // Validate password
     if(empty(trim($_POST["password"]))){
@@ -163,7 +188,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <!-- Sign Up Form -->
     <div class="wrapper form_rebbit" style="padding-top: 40px; padding: 20px;">
         <h2>Sign Up</h2>
-        <p>Please create a username and password to create an account.</p>
+        <p>Please create a username and password to create an account along with an email and photo to create an account. </p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group row<?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                 <div class="col-md-6">
@@ -172,6 +197,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <span class="help-block"><?php echo $username_err; ?></span>
                 </div>
             </div>    
+            <div class="form-group row<?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
+                <div class="col-md-6">
+                    <label>Email</label>
+                    <input type="text" name="email" class="form-control" value="<?php echo $email; ?>">
+                    <span class="help-block"><?php echo $email_err; ?></span>
+                </div>
+            </div>
             <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
                 <div class="col-md-6">
                     <label>Password</label>
