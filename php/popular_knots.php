@@ -151,12 +151,14 @@ require_once "include/config.php";
 
             echo '<div class="flex_post">';
             while ($result = mysqli_fetch_array($query)){
+                echo '<a href="knot.php?knot_name="'.$result["knot_name"].'">';
                 echo "<div class=\"post\">";
                 echo '<p class="post_title">'.$result["knot_name"].'</p>';
                 echo '<p class="post_desc">'.$result["description"]."</p>";
                 echo '<p class="post_date">Number of Followers: '.$result["n_followers"]."</p>";
                 // <img src="../images/assets/chat-icon.png" class="comment_button">
                 echo "</div>";
+                echo "</a>";
             }
             echo "</div>";
         ?>
