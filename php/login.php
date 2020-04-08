@@ -88,8 +88,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 ?>
  
- <!-- TODO: Add linkage to Reset Password page -->
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -180,7 +178,7 @@ p{
                 <input type="submit" class="btn btn-primary submit_btn" value="Login">
             </div>
             <p style="font-size:small">Don't have an account? <a class="rebbit_link" href="register.php">Sign up</a></p>
-            <p style="font-size: small;">Forgot your password? <a class="rebbit_link" href="reset.php">Reset password</a></p>
+            <p style="font-size: small;">Forgot your password? <a class="rebbit_link" href="forgot_password.php">Reset password</a></p>
         </form>
     </div>  
 </div>
