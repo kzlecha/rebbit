@@ -106,5 +106,4 @@ function is_knot_admin($user_id, $knot_id){
     }    
 }
 
-
 ?>
