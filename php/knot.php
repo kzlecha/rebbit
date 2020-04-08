@@ -154,7 +154,7 @@ require_once "include/config.php";
         echo "<h2>".$_GET["knot_name"]."</h2>";
 
         // display follow button or block user from admin
-        $loggedin = isset($_SESSION["loggedin"]) and $_SESSION["loggedin"];
+        $loggedin = isset($_SESSION["loggedin"]) and $_SESSION["loggedin"] === true;
         if ($loggedin){
             $sql = "SELECT user_id FROM BannedFromKnot where user_id = ?";
         
@@ -195,9 +195,9 @@ require_once "include/config.php";
 
                                 if(mysqli_stmt_num_rows($stmt) == 1){
                                     // if the user is following the knot, display the unfollow button
-                                    echo "<p><a class=\"rebbit_link\" href=\"unfollow_knot.php?knot_id=".$knot_id."&user_id=".$user_id."\">Unfollow</a></p>";
+                                    echo "<p><a class=\"rebbit_link\" href=\"unfollow_knot.php?knot_id=".$knot_id."\">Unfollow</a></p>";
                                 }else{
-                                    echo "<p><a class=\"rebbit_link\" href=\"follow_knot.php?knot_id=".$knot_id."&user_id=".$user_id."\">Follow</a></p>";
+                                    echo "<p><a class=\"rebbit_link\" href=\"follow_knot.php?knot_id=".$knot_id."\">Follow</a></p>";
                                 }
                             }
 
@@ -221,7 +221,6 @@ require_once "include/config.php";
                 FROM Knot AS k, Post AS p
                 WHERE k.knot_id = p.knot_id
                     AND k.knot_name = ?
-                LIMIT 30
                 ";
 
         echo '<div class="flex_post">';
