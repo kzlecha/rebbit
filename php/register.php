@@ -221,9 +221,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </div>
             <div class="form-group col-md-6">
                 <input type="submit" class="btn btn-primary submit_btn" value="Submit">
-                <p style="font-size: small; padding-top: 5px;">Forgot your password? <a class="rebbit_link" href="reset.php">Reset password</a></p>
             </div>
-            <p>Already have an account? <a class="rebbit_link" href="login.php">Login</a></p>
+            <p style="font-size: small;">Already have an account? <a class="rebbit_link" href="login.php">Login</a></p>
+            <p style="font-size: small;">Forgot your password? <a class="rebbit_link" href="reset.php">Reset password</a></p>
         </form>
     </div>    
 
