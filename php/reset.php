@@ -80,6 +80,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>Rebbit - Your world of frogs</title>
 </head>
+
+<!-- JS form validation -->
+<script>
+function validateForm() {
+  var newPass = document.forms["reset"]["new_password"].value;
+  if (newPass == "") {
+    alert("Password must be filled out");
+    return false;
+  }
+  var newPassConfirm = document.forms["reset"]["confirm_password"].value;
+  if (newPassConfirm == "") {
+    alert("You must confirm password to continue");
+    return false;
+  }
+}
+</script>
 <style>
 .form_rebbit{
     background-color: #4f676c;
@@ -116,7 +132,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <div class="wrapper form_rebbit">
         <h2>Reset Password</h2>
         <p>Please enter a new password and confirm to reset your password.</p>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"> 
+        <form id="reset" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"> 
             <div class="form-group <?php echo (!empty($new_password_err)) ? 'has-error' : ''; ?>">
                 <label>New Password</label>
                 <input type="password" name="new_password" class="form-control" value="<?php echo $new_password; ?>">
