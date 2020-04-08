@@ -1,8 +1,11 @@
 <?php
-// Configuration file 
+
+session_start();
+
 require_once "include/config.php";
 
 ?>
+
 
 <!doctype html>
 <html lang="en">
@@ -118,7 +121,7 @@ require_once "include/config.php";
         require_once "include/navbar.php";
 
         if(isset($_SESSION['user_name'])){
-          echo("<p style=\"color:#4f676c\"><i>Hello, ".$_SESSION['user_name']." </i></p>");
+          echo("<div style=\"padding:15px\"><p style=\"color:#4f676c\"><i>Hello, ".$_SESSION['user_name']." </i></p></div>");
         }
     ?>
   
@@ -129,8 +132,7 @@ require_once "include/config.php";
     <div class="row">
       <?php
       // YOUR KNOTS
-        $loggedin = isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true;
-        if($loggedin){
+      if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
             echo '<div class="col-sm-6 overflow-auto your_knots overflow-auto" style="background-color: #b7d6c6; padding: 1em; border-radius: 25px;" >';
             echo '<h3 style="padding-bottom:.25em; color:#50504e;">Your knots</h3>';
 
