@@ -2,21 +2,25 @@
 // Configuration file 
 require_once "include/config.php";
  
-// User name and password defined, left with empty variables 
+//$user_name = $_POST['user_name'] ?? ''; $username_err = $_POST['username_err'] ?? ''; 
+//$password = $_POST['password'] ?? ''; $password_err = $_POST['password_err'] ?? '';
+//$confirm_password = $_POST['confirm_password'] ?? ''; $confirm_password_err = $_POST['confirm_password_err'] ?? '';
+//$email = $_POST['email'] ?? ''; $email_err = $_POST['email_err'] ?? '';
+//$confirm_email = $_POST['confirm_email'] ?? ''; $confirm_email_err = $_POST['confirm_email_err'] ?? '';
+
+// Username, password, and email created as empty variables 
 $user_name = $password = $confirm_password = $email = $confirm_email = "";
 $username_err = $password_err = $confirm_password_err = $email_err = $confirm_email_err = "";
- 
+
 // When form is submitted process the data 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
- 
- // TODO: Add photo option and js validation 
 
     // Username validation 
     if(empty(trim($_POST["user_name"]))){
         $username_err = "Please create a username. ";
     }elseif(strlen(trim($_POST["user_name"])) > 32) {
-        // Password must be greater than 8 char
-        $username_err = "Password must have less than 32 characters.";
+        // username must be less that 32 char
+        $username_err = "Username must have less than 32 characters.";
     }else{
         // Select statement of user_name
         $sql = "SELECT user_id FROM User WHERE user_name = ?";
@@ -49,69 +53,73 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     // Validate email
     if(empty(trim($_POST["email"]))){
-        // Cannot be left empty
-        $email_err = "Please enter an email.";   
-    } elseif(!eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $email)){ 
-        // Password must contain at least one number
-        $email_err = "Please enter a valid email.";  
-    } 
+        $email_err = "Please enter an email.";
+    } else{
+        // Prepare a select statement
+        	$mystring = trim($_POST["email"]);
+        	$word = '@';
+        	$word2 = '.';
+        	if(strpos($mystring, $word) > 0 and strpos($mystring, $word) >0 ){
+        		$email = trim($_POST["email"]);
+        	}else{
+        		$email_err = "Please enter a valid email";
+        	}
+        }
 
     // Validate confirm email
-     if(empty(trim($_POST["confirm_email"]))){
-        // Cannot be left empty
-        $email_err = "Please enter an email.";   
-    } elseif(!eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $confirm_email)){ 
-        // Password must contain at least one number
-        $confirm_email_err = "Please enter a valid email.";
-    } else{
-        // Check if email matches 
+    if(empty(trim($_POST["confirm_email"]))){
+        $email_err = "Please confirm email.";
+    } elseif(empty($email_err)){
         $confirm_email = trim($_POST["confirm_email"]);
         if(empty($password_err) && ($email != $confirm_email)){
             $confirm_email_err = "Email does not match.";
         }
-    }  
+    }
+    } else {
+        // Prepare a select statement
+        	$mystring = trim($_POST["confirm_email"]);
+        	$word = '@';
+        	$word2 = '.';
+        	if(strpos($mystring, $word) > 0 and strpos($mystring, $word) >0 ){
+        		$confirm_email = trim($_POST["confirm_email"]);
+        	}else{
+        		$confirm_email_err = "Please enter a valid email";
+        	}
+    }
     
    // Validate password
     if(empty(trim($_POST["password"]))){
-        // Cannot be left empty
-        $password_err = "Please enter a password.";   
-    } elseif(strlen(trim($_POST["password"])) < 8) {
-        // Password must be greater than 8 char
-        $password_err = "Password must have at least 8 characters.";
-    } elseif(!preg_match("#[0-9]+#", $password)){
-        // Password must contain at least one number
-        $password_err = "Your password must contain at least one number.";
-    } elseif(!preg_match("#[A-Z]+#", $password)){
-        // Password must contain one uppercase letter
-        $password_err = "Your password must contain one uppercase letter";
-    } else {
+        $password_err = "Please enter a password.";     
+    } elseif(strlen(trim($_POST["password"])) < 6){
+        $password_err = "Password must have atleast 6 characters.";
+    } else{
         $password = trim($_POST["password"]);
     }
-    
+
     // Validate confirm password
     if(empty(trim($_POST["confirm_password"]))){
         $confirm_password_err = "Please confirm password.";     
     } else{
-        // Check if password matches 
         $confirm_password = trim($_POST["confirm_password"]);
         if(empty($password_err) && ($password != $confirm_password)){
-            $confirm_password_err = "Password does not match.";
+            $confirm_password_err = "Password did not match.";
         }
     }
     
     // Check input errors before inserting in database
-    if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
+    if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err) && empty($confirm_email_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO users (user_name, password) VALUES (?, ?)";
+        $sql = "INSERT INTO User (user_name, password, email) VALUES (?, ?, ?)";
          
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
+            mysqli_stmt_bind_param($stmt, "sss", $param_username, $param_password, $param_email);
             
             // Set parameters
             $param_username = $user_name;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash 
+            $param_email = $email;
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
@@ -128,7 +136,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     // Close connection
     mysqli_close($link);
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -200,6 +208,7 @@ p{
 .form_rebbit{
     background-color: #4f676c;
     padding: 20px;
+    padding-left: 10px;
     overflow: auto;
     color: #e9f5ef;
     border-radius: 25px;
@@ -262,7 +271,7 @@ p{
             <div class="form-group <?php echo (!empty($confirm_email_err)) ? 'has-error' : ''; ?>">
                 <div class="col-md-6">
                     <label>Confirm Email</label>
-                    <input type="password" name="confirm_email" class="form-control" value="<?php echo $confirm_email; ?>">
+                    <input type="email" name="confirm_email" class="form-control" value="<?php echo $confirm_email; ?>">
                     <span class="help-block"><?php echo $confirm_email_err; ?></span>
                 </div>
             </div>
@@ -281,7 +290,7 @@ p{
                 </div>
             </div>
         <!-- TODO: This photo is not yet going anywhere -->
-            <div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
+            <div class="form-group" >
                 <div class="col-md-6">
                     <input type="file" id="img" name="img" accept="image/*">
                 </div>
