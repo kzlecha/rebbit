@@ -164,19 +164,14 @@ require_once "include/config.php";
 
         mysqli_stmt_close($stmt);
 
-    }   
+    } 
+    mysqli_close($link);
 }
 ?>
 
-<form style="padding:10px;" action = 'editCustomer.php'>
+<form style="padding:10px;" action = 'editprofile.php'>
     <input class="submit_btn" type="submit" value="Edit Profile">
 </form>
-
-<?php
-      // Close connection
-      mysqli_close($link);
-?>
-
 
 <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

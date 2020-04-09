@@ -121,20 +121,22 @@ require_once "include/config.php";
   
 
         //Get comments sql query
-
-
-        // COMMENTS
-        echo "<button type=\"button\" class=\"collapsible\">Comments</button>";
-          echo "<div class=\"content\">";
-          echo "<p class=\"post_desc\">" .$_GET["comment_body"]. "</p>";
-          echo "<p class=".$_GET["create_date"]."</p>";
-        echo "</div>";
+        $sql = "SELECT * FROM Comment AS c, User AS u WHERE c.user_id = u.user_id AND post_id = ".$post_id;
+        $query = mysqli_query($link, $sql);
+        while($result = mysqli_fetch_array($query)){
+            echo "<button type=\"button\" class=\"collapsible\">Comments</button>";
+            echo "<div class=\"content\">";
+            echo "<p class=\"post_desc\">" .$result["user_id"]. "</p>";
+            echo "<p class=\"post_desc\">" .$result["comment_body"]. "</p>";
+            echo "<p class=".$result["create_date"]."</p>";
+            echo "</div>";
+        }
 
       // IF LOGGED IN ADD COMMENT
       if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
         //Button to add comment as form 
         echo "<p> Add a comment </p>";
-        echo "<form action=" .$_SERVE['PHP_SELF']. "method=\"POST\">";
+        echo "<form action=" .$_SERVER['PHP_SELF']. "method=\"POST\">";
           echo "<input type=\"text\" name=\"comment_body\" id=\"comment\" /><br /><br />";
           echo "<input type=\"submit\" value=\"submit\"><br /><br />";
 
