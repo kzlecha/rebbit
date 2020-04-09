@@ -87,9 +87,9 @@ require_once "include/config.php";
         }
 
         $sql = "SELECT user_name, post_title, knot_name, image_location, post_body, p.create_date AS pdate 
-                      FROM Post as p, Knot AS k, User as u
+                      FROM Post as p, Knot AS k, Account as u
                       WHERE p.knot_id = k.knot_id
-                      AND k.user_id = u.user_id
+                      AND p.user_id = u.user_id
                       AND p.post_id = ".$_GET["post_id"];
 
         $query = mysqli_query($link, $sql) or die(mysqli_error($link));
@@ -99,10 +99,15 @@ require_once "include/config.php";
         if ($result = mysqli_fetch_array($query)){
           echo "<h2 class=\"post_title\">".$result["post_title"]."</h2>";
           echo "<h3 class=\"post_knot\">".$result["knot_name"]."</h3>"; //Knot id
-          echo "<h3 class=\"post_knot\">".$result["user_name"]."</h3>"; //User id
+          echo "<h3 class=\"post_knot\">".$result["user_name"]."</h3>"; //Account id
           echo "<div class=\"container-fluid flex_post\"";
             echo "<div class=\"col post_img\"";
-            echo "<img src=\"../".$result["img_location"]."\" alt=\"post image\" class=\"img-thumbnail main_image post_knot\">";
+            if(isset($result["image_location"]) && !empty($result["image_location"])){
+              echo "<br>";
+              echo '<img src="../'.$result["image_location"].'" alt="'.$result["post_title"].'" class=\"img-thumbnail main_image post_knot\">';
+            }else{
+              echo "<img src=\"../images/assets/logo_small.png\" alt=\"main image\" class=\"img-thumbnail main_image post_knot\">";
+            }
             echo "</div>";
             echo "<div class=\"col post_info\">";
               echo "<p class=\"post_desc\">" .$result["post_body"];
