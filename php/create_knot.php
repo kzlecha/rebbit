@@ -8,7 +8,7 @@ require_once "include/config.php";
 
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false){
     // if the user is not logged in, they cannot create a knot
-    header("login.php");
+    header("location: login.php");
 }
 
 // User name and password defined, left with empty variables 
