@@ -62,7 +62,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($knot_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO knot (knot_name) VALUES (?)";
+        $sql = "INSERT INTO Knot (knot_name) VALUES (?)";
          
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -73,7 +73,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
-                // Redirect to login page
+                // set the creator as the admin
+                $sql = "SELECT knot_id FROM Knot WHERE knot_name = ".$knot_name;
+                $query = mysqli_query($link, $sql) or header("location: knot.php?knot_name=".$knot_name."");
+
+                if ($result = mysqli_fetch_array($query)){
+                    $sql = "INSERT INTO KnotAdmin (knot_id, user_id) VALUES (?,?)";
+                    if($stmt = mysqli_prepare($link, $sql)){
+                        mysqli_stmt_bind_param($stmt, "ii", $param_knotid, $param_userid);
+                        $param_knotid = $result["knot_id"];
+                        $param_userid = $_SESSION["user_id"];
+                        mysqli_stmt_execute($stmt);
+                    }else{
+                        header("location: knot.php?knot_name=".$knot_name."");
+                    }
+                }
+                    
                 header("location: knot.php?knot_name=".$knot_name."");
             } else{
                 echo "Something went wrong. Please try again later.";
