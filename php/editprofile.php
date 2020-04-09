@@ -47,7 +47,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_userid = $_SESSION["user_id"];
             
             if(mysqli_stmt_execute($stmt)){
-                session_destroy();
+                // session_destroy();
+                $_SESSION["user_name"] = $new_username;
                 header("location: profile.php");
                 exit();
             } else{
