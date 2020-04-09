@@ -210,7 +210,7 @@ require_once "include/config.php";
             }
         
 
-        if ($loggedin){
+        if ($loggedin)
             // if the user is logged in, they can make a post
             echo "<p><a class=\"rebbit_link\" href=\"create_post.php?knot_id=".$knot_id."\">Create Post</a></p>";
         }
