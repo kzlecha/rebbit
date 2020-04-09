@@ -174,7 +174,7 @@ require_once "include/config.php";
                         // the user is banned from the knot
                         header("page_not_found.php");
                     } else {
-                        $sql = "SELECT k.knot_id, user_id
+                        $sql = "SELECT k.knot_id as knot_id, user_id
                                 FROM Knot AS k, FollowingKnot as fk
                                 WHERE k.knot_id = fk.knot_id
                                     AND knot_name = ?
@@ -182,11 +182,11 @@ require_once "include/config.php";
         
                          if($stmt = mysqli_prepare($link, $sql)){
                             // Bind variables to the prepared statement as parameters
-                            mysqli_stmt_bind_param($stmt, "is", $param_userid, $param_knotname);
+                            mysqli_stmt_bind_param($stmt, "si", $param_knotname, $param_userid);
                             
                             // Set parameters
-                            $param_userid = $_SESSION["user_id"];
                             $param_knotname = $_GET["knot_name"];
+                            $param_userid = $_SESSION["user_id"];
                             
                             // Attempt to execute the prepared statement
                             if(mysqli_stmt_execute($stmt)){
@@ -216,7 +216,7 @@ require_once "include/config.php";
         }
 
 
-        echo "<div>";
+        echo "</div>";
 
         $sql = "SELECT post_id, user_id, post_title, post_body, image_location, p.create_date as pdate
                 FROM Knot AS k, Post AS p
@@ -224,8 +224,6 @@ require_once "include/config.php";
                     AND k.knot_name = ?
                 ORDER BY pdate DESC
                 ";
-
-        echo '<div class="flex_post">';
         
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -237,20 +235,20 @@ require_once "include/config.php";
                 echo '<div class="flex_post">';
                 while (mysqli_stmt_fetch($stmt)){
                 //  Post styling 
-                echo '<a href="post.php?post_id='.$post_id.'">';
-                echo '<div class="post">';
-                echo '<img src="../images/'.$image_location.'" alt="'.$post_title.'" class="img-thumbnail post_img" >';
-                echo '<div class="post_info">';
-                echo '<p class="post_title">'.$post_title.'</p>';
-                echo '<img src="../images/assets/UpvoteDownvote.png" alt="..." class="post_upvote" >';
-                echo '<p class="post_desc">'.$post_body.'</p>';
-                echo '<p class="post_date">'.$pdate.'</p>';
-                echo '<img src="./../images/assets/chat-icon.png" class="comment_button">';
-                echo '</div>';
-                echo '</div>';
-                echo '</a>';
+                    echo '<a href="post.php?post_id='.$post_id.'">';
+                    echo '<div class="post">';
+                    echo '<img src="../'.$image_location.'" alt="'.$post_title.'" class="img-thumbnail post_img" >';
+                    echo '<div class="post_info">';
+                    echo '<p class="post_title">'.$post_title.'</p>';
+                    echo '<img src="../images/assets/UpvoteDownvote.png" alt="..." class="post_upvote" >';
+                    echo '<p class="post_desc">'.$post_body.'</p>';
+                    echo '<p class="post_date">'.$pdate.'</p>';
+                    echo '<img src="./../images/assets/chat-icon.png" class="comment_button">';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</a>';
                 }
-            echo '</div>';
+                echo '</div>';
         }else{
             echo "Oops! Something went wrong. Please try again later.";
         }
@@ -265,5 +263,5 @@ require_once "include/config.php";
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="../bootstrap/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
-        
+
 </html>

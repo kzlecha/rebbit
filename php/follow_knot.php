@@ -4,17 +4,22 @@
 
     require_once "include/config.php";
 
-    $loggedin = isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true;
+    if(!isset($_SESSION["user_id"])){
+        if(isset($_GET["knot_id"])){
+            header("location: knot.php?knot_id=".$knot_id."");
+        }else{
+            header("page_not_found.php");
+        }
+    }
 
-    // if the user is not logged in, exit
-    if(!$loggedin){
+    if(!isset($_GET['knot_id'])){
         header("page_not_found.php");
     }
 
     $user_id = $_SESSION["user_id"];
     $knot_id = $_GET["knot_id"];
 
-    $sql = "INSERT INTO FollowingKnot (user_id, knot_id, create_date) VALUES (?, ?, NOW())";
+    $sql = "INSERT INTO FollowingKnot (user_id, knot_id) VALUES (?, ?)";
 
     if($stmt = mysqli_prepare($link, $sql)){
         // Bind variables to the prepared statement as parameters

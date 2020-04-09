@@ -4,10 +4,15 @@
 
     require_once "include/config.php";
 
-    $loggedin = isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true;
+    if(!isset($_SESSION["user_id"])){
+        if(isset($_GET["knot_id"])){
+            header("location: knot.php?knot_id=".$knot_id."");
+        }else{
+            header("page_not_found.php");
+        }
+    }
 
-    // if the user is not logged in, exit
-    if(!$loggedin){
+    if(!isset($_GET['knot_id'])){
         header("page_not_found.php");
     }
 
