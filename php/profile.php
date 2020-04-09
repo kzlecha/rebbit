@@ -168,7 +168,7 @@ require_once "include/config.php";
 }
 ?>
 
-<form style="padding:10px;" action = 'editCustomer.php'>
+<form style="padding:10px;" action = 'editprofile.php'>
     <input class="submit_btn" type="submit" value="Edit Profile">
 </form>
 
