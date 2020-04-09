@@ -2,15 +2,9 @@
 // Configuration file 
 require_once "include/config.php";
  
-//$user_name = $_POST['user_name'] ?? ''; $username_err = $_POST['username_err'] ?? ''; 
-//$password = $_POST['password'] ?? ''; $password_err = $_POST['password_err'] ?? '';
-//$confirm_password = $_POST['confirm_password'] ?? ''; $confirm_password_err = $_POST['confirm_password_err'] ?? '';
-//$email = $_POST['email'] ?? ''; $email_err = $_POST['email_err'] ?? '';
-//$confirm_email = $_POST['confirm_email'] ?? ''; $confirm_email_err = $_POST['confirm_email_err'] ?? '';
-
 // Username, password, and email created as empty variables 
-$user_name = $password = $confirm_password = $email = $confirm_email = $image_location = "";
-$username_err = $password_err = $confirm_password_err = $email_err = $confirm_email_err = $image_location_err = "";
+$user_name = $password = $confirm_password = $email = $confirm_email = "";
+$username_err = $password_err = $confirm_password_err = $email_err = $confirm_email_err = "";
 
 // When form is submitted process the data 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -269,7 +263,7 @@ p{
             <div class="form-group row<?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
                 <div class="col-md-6">
                     <label>Email</label>
-                    <input type="text" name="email" class="form-control" value="<?php echo $email; ?>">
+                    <input type="email" name="email" class="form-control" value="<?php echo $email; ?>">
                     <span class="help-block"><?php echo $email_err; ?></span>
                 </div>
             </div>
