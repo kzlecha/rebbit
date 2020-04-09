@@ -75,6 +75,7 @@ require_once "include/config.php";
         require_once "include/navbar.php";
     ?>
 
+    // TODO: ADD PREPARED STATEMENTS 
     <!-- USER POST + COMMENTS -->
     <?php 
         echo "<div class=\"container-fluid post\"";
@@ -82,9 +83,20 @@ require_once "include/config.php";
           echo("<p style=\"color:#4f676c\"><i>Hello, ".$_SESSION['user_name']." </i></p>");
         }
 
+        $sql = "SELECT k.knot_id AS knot_id, user_id, user_name, post_id, post_title, image_location, post_body, p.create_date AS pdate 
+                      FROM Posts as p, Knot AS k, User as u
+                      WHERE p.user_id = k.user_id
+                      AND k.user_id = u.user_id";
+
+        $query = mysqli_query($link, $sql) or die(mysqli_error($link));
+
+        
+
+
         // POST
         echo "<h2 class=\"post_title\">".$_GET["post_title"]."</h2>";
-        echo "<h3 class=\"post_knot\">".$_GET["knot_name"]."</h3>";
+        echo "<h3 class=\"post_knot\">".$_GET["knot_name"]."</h3>"; //Knot id
+        echo "<h3 class=\"post_knot\">".$_GET["user_name"]."</h3>"; //User id
         echo "<div class=\"container-fluid flex_post\"";
           echo "<div class=\"col post_img\"";
           echo "<img src=".$GET["img_location"]."alt=\"post image\" class=\"img-thumbnail main_image post_knot\">";
@@ -105,7 +117,15 @@ require_once "include/config.php";
 
       // IF LOGGED IN ADD COMMENT
       if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-        
+       
+          $sql = "SELECT k.knot_id AS knot_id, user_id, user_name, post_id, post_title, image_location, post_body, p.create_date AS pdate 
+                      FROM Posts as p, Knot AS k, User as u
+                      WHERE p.user_id = k.user_id
+                      AND k.user_id = u.user_id";
+          
+          $query = mysqli_query($link, $sql) or die(mysqli_error($link));
+
+
       }
 
       echo "</div>"; 
