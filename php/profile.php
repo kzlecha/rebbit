@@ -120,10 +120,21 @@ require_once "include/config.php";
         require_once "include/navbar.php";
 
         if(isset($_SESSION['user_name'])){
-          echo("<div style=\"padding:15px\"><p style=\"color:#4f676c\"><i>Hello, ".$_SESSION['user_name']." </i></p></div>");
+          echo("<div style=\"padding:15px\"><p style=\"color:#4f676c\"><i>Hello, ".$_SESSION['user_name']."</i></p></div>");
+          echo("<div style=\"padding:15px\"><h3 style=\"color:#4f676c\"> ".$_SESSION['user_name']."'s Profile</h3></div>");
+        } else {
+            echo "Sorry, you must be logged in to view your profile.";
+            echo "";
         }
     ?>
 
+    <?php
+
+
+    ?>
+
+
+    
 
 
 
