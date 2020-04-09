@@ -217,10 +217,11 @@ require_once "include/config.php";
 
         echo "<div>";
 
-        $sql = "SELECT post_id, user_id, post_title, post_body, post_title, image_location, p.create_date as pdate
+        $sql = "SELECT post_id, user_id, post_title, post_body, image_location, p.create_date as pdate
                 FROM Knot AS k, Post AS p
                 WHERE k.knot_id = p.knot_id
                     AND k.knot_name = ?
+                ORDER BY pdate DESC
                 ";
 
         echo '<div class="flex_post">';
@@ -238,7 +239,7 @@ require_once "include/config.php";
                 if(mysqli_stmt_execute($stmt)){
                   mysqli_stmt_bind_result($stmt, $post_id, $user_id, $post_title, $post_body, $image_location, $pdate);
                   echo '<div class="flex_post">';
-                  while (mysqli_stmt_fetch()){
+                  while (mysqli_stmt_fetch($stmt)){
                     //  Post styling 
                     echo '<a href="post.php?post_id='.$post_id.'">';
                     echo '<div class="post">';

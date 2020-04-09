@@ -157,7 +157,7 @@ require_once "include/config.php";
               if(mysqli_stmt_execute($stmt)){
                 mysqli_stmt_bind_result($stmt, $knot_id, $user_id, $post_id, $post_title, $image_location, $post_body, $pdate);
                 echo '<div class="flex_post">';
-                while (mysqli_stmt_fetch()){
+                while (mysqli_stmt_fetch($stmt)){
                     // link to post
                     echo '<a href="post.php?post_id='.$post_id.'">';
                     echo "<div class=\"post\">";
@@ -196,7 +196,7 @@ require_once "include/config.php";
             // LIMIT 10: keeps from being too much information
             // theoretically have scroll/multiple pages via javascript
             
-            $sql = "SELECT k.knot_id AS knot_id, user_id, post_id, post_title, image_location, post_body, p.create_date AS pdate
+            $sql = "SELECT user_id, post_id, post_title, image_location, post_body, p.create_date AS pdate
                     FROM Knot AS k, Post AS p
                     WHERE k.knot_id = p.knot_id
                         AND k.knot_id IN (SELECT knot_id
@@ -212,14 +212,11 @@ require_once "include/config.php";
                 echo '<a href="post.php'.$result["post_id"].'">';
                 echo "<div class=\"post\">";
                 echo '<p class="post_knot">'.$result["knot_name"].'</p>';
-                echo '<img src="'.$result["image_location"].'" alt="'.$result["title"].'" class="img-thumbnail">';
+                echo '<img src="'.$result["image_location"].'" alt="'.$result["post_title"].'" class="img-thumbnail">';
                 echo '<div class="post_info">';
-                echo '<p class="post_title">'.$result["title"].'</p>';
+                echo '<p class="post_title">'.$result["post_title"].'</p>';
                 echo '<img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >';
-                // REVIEW: do we want to maybe remove the description or limit the amount of text via JS?
-                // echo '<p class="post_desc">'.$result["description"]."</p>";
                 echo '<p class="post_date">'.$result["pdate"]."</p>";
-                echo '<img src="../images/assets/chat-icon.png" class="comment_button">';
                 echo "</div></div>";
                 echo '</a>';
             }
