@@ -161,6 +161,9 @@ require_once "include/config.php";
         }else{
             echo "Oops! Something went wrong. Please try again later.";
         }
+
+        mysqli_stmt_close($stmt);
+
     }   
 }
 ?>
