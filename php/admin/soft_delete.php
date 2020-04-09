@@ -1,8 +1,10 @@
 <?php
-    session_start();
 
-    require_once "include/config.php";
+    session_start();
+    
     require_once "include/authorize.php";
+    require_once "include/config.php";
+
 ?>
 
 <!doctype html>
@@ -130,76 +132,57 @@
         }
     ?>
 
-  <!-- NAVIGATION BAR-->
-  <?php
-    require_once "include/navbar.php";
-  ?>
+    <!-- NAVIGATION BAR-->
+    <?php
+        require_once "include/navbar.php";
+    ?>
 
-  <!-- 2 column layout -->
-  <div class="container-fluid">
+    <p style="font-size: small;">Return to admin profile: <a class="rebbit_link" href="admin.php">admin page</a></p>
+
+    <div class="container-fluid">
     <!-- Get username -->
     <p style="color:#4f676c;"><i>Hello, Admin <?php echo $_SESSION["user_name"];?></i></p>
-    <h1 style="padding-top: 1em; color:#4f676c;">Admin Portal</h1>
-    <p class="top_desc">Hop to it partner. Search for posts and users or view website statistics.</p>
+    <h1 style="padding-top: 1em; color:#4f676c;">Cite statistics</h1>
+    <!-- NOTE: Database endpoint for restoring Knot Admin not hit -->
+    <p class="top_desc">Hop to it partner. Restore or Permanently Delete Soft Deleted Users and Knots.</p>
     <div class="row">
-        <!-- Search -->
-        <div class="col-sm-4 overflow-auto your_knots" style="background-color: #b7d6c6; padding: 1em; border-radius: 25px;" >
-            <div class="wrapper form_rebbit">
-            <h2>Search</h2>
-            <p>Please enter the relevant information for search.</p>
-            <form id="admin_search" action="admin/admin_search.php" method="post">
-                <div class="form-group">
-                    <label>Keyword</label>
-                    <input type="text" name="keyword" class="form-control" placeholder="Enter the keyword or phrase" required,>
-                </div>    
-                <div class="form-group">
-                    <label>Type</label>
-                    <select name="search_type" class="form-control">
-                        <option>username</option>
-                        <option>email</option>
-                        <option>post title</option>
-                    </select>
-                </div> 
-                <div class="form-group">
-                    <input type="reset" class="btn btn-primary submit_btn" value="Reset">
-                    <input type="submit" class="btn btn-primary submit_btn" value="Search">
-                </div>
-            </form>
-            </div>  
-
-        </div>
-        <!-- usage -->
-        <div class = "col-sm-4 cite_stats overflow-auto" style="background-color: #e7e4e4; padding: 1em; border-radius: 25px; ">
-            <div class="wrapper form_rebbit">
-                <h2>Rebbit Statistics</h2>
-                <p>Please enter the Statistics you wish to see.</p>
-                <form id="admin_stat" action="admin/admin_stats.php" method="post"> 
-                    <div class="form-group">
-                        <label>Desired Statistics</label>
-                        <input type="checkbox" name="growth_by_day" class="form-control" value="Growth by Day"></input>
-                        <input type="checkbox" name="popular_knots" class="form-control" value="Most Popular Knots"></input>
-                    </div> 
-                    <div class="form-group">
-                        <input type="reset" class="btn btn-primary submit_btn" value="Reset">
-                        <input type="submit" class="btn btn-primary submit_btn" value="Search">
-                    </div>
-                </form>
-            </div>
+        <h2>Soft Deletes<h2>
+        
+        <div class="col-sm-6 overflow-auto your_knots overflow-auto" style="background-color: #b7d6c6; padding: 1em; border-radius: 25px;" >
+        <h3 style="padding-bottom:.25em; color:#50504e;">Knots</h3>
             
+        <?php
+            // growth by num users
+            $sql = "SELECT knot_id, knot_name FROM Knot WHERE delete_date IS NOT NULL";
+
+            $query = mysqli_query($link, $sql) or die(mysqli_error($link));
+
+            echo '<div class="flex_post">';
+            while ($result = mysqli_fetch_array($query)){
+                echo "<div class=\"post post_info\">";
+                echo '<p class="post_knot">'.$result["knot_name"].'</p>';
+                echo '</div>';
+            }
+            echo "</div>";
+        ?>
         </div>
-        <div class="col-sm-4 overflow-auto your_knots" style="background-color: #b7d6c6; padding: 1em; border-radius: 25px;" >
-            <div class="wrapper form_rebbit">
-            <h2>Restore Soft Deletes</h2>
-            <p>This feature is not yet implemented.</p>
-            <!-- TODO: restore location upon implementation -->
-            <form id="admin_soft_deletes" action="admin/soft_delete.php" method="post">
-                <div class="form-group">
-                    <input type="reset" class="btn btn-primary submit_btn" value="Reset">
-                    <input type="submit" class="btn btn-primary submit_btn" value="View Soft Deletes">
-                </div>
-            </form>
-            </div> 
-        </div>
+        <div class="col-sm-6 trending overflow-auto" style="background-color: #e7e4e4; padding: 1em; border-radius: 25px; ">
+        <h3 style="padding-bottom:.25em; color:#4f676c;">Posts</h3>
+        <?php
+            // growth by num users
+            $sql = "SELECT knot_id, knot_name FROM Knot WHERE delete_date IS NOT NULL";
+
+            $query = mysqli_query($link, $sql) or die(mysqli_error($link));
+
+            echo '<div class="flex_post">';
+            while ($result = mysqli_fetch_array($query)){
+                echo "<div class=\"post post_info\">";
+                echo '<p class="post_knot">'.$result["knot_name"].'</p>';
+                echo '</div>';
+            }
+            echo "</div>";
+        ?>
+        
     </div>
   </div>
   
@@ -208,5 +191,6 @@
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="../bootstrap/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
 </body>
 </html>

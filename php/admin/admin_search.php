@@ -130,10 +130,11 @@
         }
     ?>
 
-  <!-- NAVIGATION BAR-->
-  <?php
-    require_once "include/navbar.php";
-  ?>
+    <!-- NAVIGATION BAR-->
+    <?php
+        require_once "include/navbar.php";
+
+    ?>
 
   <!-- 2 column layout -->
   <div class="container-fluid">
@@ -144,62 +145,25 @@
     <div class="row">
         <!-- Search -->
         <div class="col-sm-4 overflow-auto your_knots" style="background-color: #b7d6c6; padding: 1em; border-radius: 25px;" >
-            <div class="wrapper form_rebbit">
-            <h2>Search</h2>
-            <p>Please enter the relevant information for search.</p>
-            <form id="admin_search" action="admin/admin_search.php" method="post">
-                <div class="form-group">
-                    <label>Keyword</label>
-                    <input type="text" name="keyword" class="form-control" placeholder="Enter the keyword or phrase" required,>
-                </div>    
-                <div class="form-group">
-                    <label>Type</label>
-                    <select name="search_type" class="form-control">
-                        <option>username</option>
-                        <option>email</option>
-                        <option>post title</option>
-                    </select>
-                </div> 
-                <div class="form-group">
-                    <input type="reset" class="btn btn-primary submit_btn" value="Reset">
-                    <input type="submit" class="btn btn-primary submit_btn" value="Search">
-                </div>
-            </form>
-            </div>  
+            <?php
+                
+                $keyword = $_POST["keyword"];
+                $type = $_POST["type"];
+
+                if(empty($keyword)){
+                    header("admin.php");
+                }
+                if(empty($type)){
+                    // by default set the keyword to the username
+                    $type = "username";
+                }
+
+
+
+            ?>
 
         </div>
-        <!-- usage -->
-        <div class = "col-sm-4 cite_stats overflow-auto" style="background-color: #e7e4e4; padding: 1em; border-radius: 25px; ">
-            <div class="wrapper form_rebbit">
-                <h2>Rebbit Statistics</h2>
-                <p>Please enter the Statistics you wish to see.</p>
-                <form id="admin_stat" action="admin/admin_stats.php" method="post"> 
-                    <div class="form-group">
-                        <label>Desired Statistics</label>
-                        <input type="checkbox" name="growth_by_day" class="form-control" value="Growth by Day"></input>
-                        <input type="checkbox" name="popular_knots" class="form-control" value="Most Popular Knots"></input>
-                    </div> 
-                    <div class="form-group">
-                        <input type="reset" class="btn btn-primary submit_btn" value="Reset">
-                        <input type="submit" class="btn btn-primary submit_btn" value="Search">
-                    </div>
-                </form>
-            </div>
-            
-        </div>
-        <div class="col-sm-4 overflow-auto your_knots" style="background-color: #b7d6c6; padding: 1em; border-radius: 25px;" >
-            <div class="wrapper form_rebbit">
-            <h2>Restore Soft Deletes</h2>
-            <p>This feature is not yet implemented.</p>
-            <!-- TODO: restore location upon implementation -->
-            <form id="admin_soft_deletes" action="admin/soft_delete.php" method="post">
-                <div class="form-group">
-                    <input type="reset" class="btn btn-primary submit_btn" value="Reset">
-                    <input type="submit" class="btn btn-primary submit_btn" value="View Soft Deletes">
-                </div>
-            </form>
-            </div> 
-        </div>
+        
     </div>
   </div>
   
