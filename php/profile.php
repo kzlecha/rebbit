@@ -75,9 +75,15 @@ require_once "include/config.php";
   .trending, .your_knots{
     max-height: 2000px;
   }
-
+  .submit_btn{
+    background-color: darkseagreen;
+    border-color: #9eb9ab;
+  }
   h1, h2, h3{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+  h4{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   }
   
   /* width */
@@ -101,6 +107,10 @@ require_once "include/config.php";
   ::-webkit-scrollbar-thumb:hover {
     background: #b8dbd5; 
   }
+  .submit_btn{
+    background-color: darkseagreen;
+    border-color: #9eb9ab;
+    }
   .post_upvote{
     min-height: 30px;
     max-width: 60px;
@@ -128,14 +138,41 @@ require_once "include/config.php";
     ?>
 
     <?php
-        
+    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+        $userId = $_SESSION['user_name']; 
+        $sql = "SELECT user_id, user_name, email, image_locatiom
+                    FROM User
+                    WHERE user_id = ?";
 
-    ?>
+        if($stmt = mysqli_prepare($link, $sql)){
+            mysqli_stmt_bind_param($stmt, "s", $param_userid);
+            $param_userid = $_SESSION['user_id'];
+            
+            if(mysqli_stmt_execute($stmt)){
+                mysqli_stmt_bind_result($stmt, $user_id, $user_name, $email, $image_locatiom);
+                echo("<div style=\"padding:5px\"><h4 style=\"color:#4f676c\">Profile Information</h4></div>"); 
+                while (mysqli_stmt_fetch($stmt)){
+                    echo "<div style=\"padding:15px\">";
+                    echo '<a href="profile.php?user_id='.$user_id.'">';
+                    echo '<h4>'.$user_name.'</h4>';
+                    echo '<h4>'.$email.'</h4>';
+                    echo "</div>";
+                }
+        }else{
+            echo "Oops! Something went wrong. Please try again later.";
+        }
+    }   
+}
+?>
 
+<form style="padding:10px;" action = 'editCustomer.php'>
+    <input class="submit_btn" type="submit" value="Edit Profile">
+</form>
 
-    
-
-
+<?php
+      // Close connection
+      mysqli_close($link);
+?>
 
 <body>
 
