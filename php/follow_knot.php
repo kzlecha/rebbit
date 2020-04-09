@@ -21,7 +21,7 @@
         mysqli_stmt_bind_param($stmt, "ii", $param_userid, $param_knotid);
         
         // Set parameters
-        $param_userid = $user_name;
+        $param_userid = $user_id;
         $param_knotid = $knot_id;
         
         // Attempt to execute the prepared statement
