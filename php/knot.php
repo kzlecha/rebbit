@@ -228,41 +228,31 @@ require_once "include/config.php";
         
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "is", $param_userid, $param_knotname);
+            mysqli_stmt_bind_param($stmt, "s", $param_knotname);
             $param_knotname = $_GET["knot_name"];
             
-            if($stmt = mysqli_prepare($link, $sql)){
-                // Bind variables to the prepared statement as parameters
-                mysqli_stmt_bind_param($stmt, "i", $param_userid);
-                $param_userid = $_SESSION["user_id"];
-  
-                if(mysqli_stmt_execute($stmt)){
-                  mysqli_stmt_bind_result($stmt, $post_id, $user_id, $post_title, $post_body, $image_location, $pdate);
-                  echo '<div class="flex_post">';
-                  while (mysqli_stmt_fetch($stmt)){
-                    //  Post styling 
-                    echo '<a href="post.php?post_id='.$post_id.'">';
-                    echo '<div class="post">';
-                    echo '<img src="../images/'.$image_location.'" alt="'.$post_title.'" class="img-thumbnail post_img" >';
-                    echo '<div class="post_info">';
-                    echo '<p class="post_title">'.$post_title.'</p>';
-                    echo '<img src="../images/assets/UpvoteDownvote.png" alt="..." class="post_upvote" >';
-                    echo '<p class="post_desc">'.$post_body.'</p>';
-                    echo '<p class="post_date">'.$pdate.'</p>';
-                    echo '<img src="./../images/assets/chat-icon.png" class="comment_button">';
-                    echo '</div>';
-                    echo '</div>';
-                    echo '</a>';
-                  }
+            if(mysqli_stmt_execute($stmt)){
+                mysqli_stmt_bind_result($stmt, $post_id, $user_id, $post_title, $post_body, $image_location, $pdate);
+                echo '<div class="flex_post">';
+                while (mysqli_stmt_fetch($stmt)){
+                //  Post styling 
+                echo '<a href="post.php?post_id='.$post_id.'">';
+                echo '<div class="post">';
+                echo '<img src="../images/'.$image_location.'" alt="'.$post_title.'" class="img-thumbnail post_img" >';
+                echo '<div class="post_info">';
+                echo '<p class="post_title">'.$post_title.'</p>';
+                echo '<img src="../images/assets/UpvoteDownvote.png" alt="..." class="post_upvote" >';
+                echo '<p class="post_desc">'.$post_body.'</p>';
+                echo '<p class="post_date">'.$pdate.'</p>';
+                echo '<img src="./../images/assets/chat-icon.png" class="comment_button">';
                 echo '</div>';
-
-            }else{
-                header("page_not_found.php");
-            }
+                echo '</div>';
+                echo '</a>';
+                }
+            echo '</div>';
+        }else{
+            echo "Oops! Something went wrong. Please try again later.";
         }
-    }else{
-        echo "Oops! Something went wrong. Please try again later.";
-    }
 
     ?>
             
