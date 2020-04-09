@@ -145,7 +145,7 @@ require_once "include/config.php";
                     WHERE user_id = ?";
 
         if($stmt = mysqli_prepare($link, $sql)){
-            mysqli_stmt_bind_param($stmt, "s", $param_userid);
+            mysqli_stmt_bind_param($stmt, "i", $param_userid);
             $param_userid = $_SESSION['user_id'];
             
             if(mysqli_stmt_execute($stmt)){
@@ -176,8 +176,6 @@ require_once "include/config.php";
       // Close connection
       mysqli_close($link);
 ?>
-
-<body>
 
 
 <!-- Optional JavaScript -->
