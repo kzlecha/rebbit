@@ -75,23 +75,27 @@ require_once "include/config.php";
         require_once "include/navbar.php";
     ?>
 
-    // TODO: ADD PREPARED STATEMENTS 
     <!-- USER POST + COMMENTS -->
     <?php 
-        echo "<div class=\"container-fluid post\"";
         if(isset($_SESSION['user_name'])){
           echo("<p style=\"color:#4f676c\"><i>Hello, ".$_SESSION['user_name']." </i></p>");
         }
 
-        $sql = "SELECT k.knot_id AS knot_id, user_id, user_name, post_id, post_title, image_location, post_body, p.create_date AS pdate 
-                      FROM Posts as p, Knot AS k, User as u
+        $sql = "SELECT k.knot_id AS knot_id, u.user_id AS user_id, user_name, post_id, post_title, knot_name, image_location, post_body, p.create_date AS pdate 
+                      FROM Post as p, Knot AS k, User as u
                       WHERE p.user_id = k.user_id
                       AND k.user_id = u.user_id";
 
         $query = mysqli_query($link, $sql) or die(mysqli_error($link));
 
-        
+        if($stmt = mysqli_prepare($link, $sql)){
+          mysqli_stmt_bind_param($stmt, "i", $param_userid);
+          $param_userid = $_SESSION['user_id'];
 
+          if(mysqli_stmt_execute($stmt)){
+            mysqli_stmt_bind_result($stmt, $knot_id, $user_id, $post_id, $post_title, $image_location, $post_body, $pdate, $knot_name);
+            echo "<div class=\"container-fluid post\"";
+            while (mysqli_stmt_fetch($stmt)){
 
         // POST
         echo "<h2 class=\"post_title\">".$_GET["post_title"]."</h2>";
@@ -125,9 +129,9 @@ require_once "include/config.php";
           
           $query = mysqli_query($link, $sql) or die(mysqli_error($link));
 
+        
 
       }
-
       echo "</div>"; 
     ?>
   
