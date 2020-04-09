@@ -48,7 +48,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "iiss", $param_userid, $param_knotid, $param_title, $param_body);
             $param_userid = $_SESSION["user_id"];
-            $param_knotid = $_GET["knot_id"];
+            $param_knotid = $stmt["knot_id"];
+            //$param_knotid = $_GET["knot_id"];
             $param_title = $post_title;
             $param_body = $post_body;
             
@@ -60,7 +61,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     
                     mysqli_stmt_bind_param($stmt, "iis", $param_userid, $param_knotid, $param_title);
                     $param_userid = $_SESSION["user_id"];
-                    $param_knotid = $_GET["knot_id"];
+                    //$param_knotid = $_GET["knot_id"];
+                    $param_knotid = $knot_id;
                     $param_title = $post_title;
 
                     if(mysqli_stmt_execute($stmt)){
