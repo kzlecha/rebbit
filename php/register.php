@@ -106,31 +106,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     
-    // Validate image
-    if(empty(trim($_POST["image_location"]))){
-        $image_location_err = "Please upload image";     
-    } else{
-       $image_location = trim($_POST["image_location"]);
-    }
-    
     // Check input errors before inserting in database
-    if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err) && empty($confirm_email_err) && empty($image_location_err)){
+    if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err) && empty($confirm_email_err)){
         
         // Prepare an insert statement
         //$sql = "INSERT INTO User (user_name, password, email, img_location) VALUES (?, ?, ?, ?)";
-        $sql = "INSERT INTO User (user_name, password, email, image_location) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO User (user_name, password, email) VALUES (?, ?, ?)";
 
 
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
             //mysqli_stmt_bind_param($stmt, "sss", $param_username, $param_password, $param_email);
-            mysqli_stmt_bind_param($stmt, "ssss", $param_username, $param_password, $param_email, $param_img);
+            mysqli_stmt_bind_param($stmt, "ssss", $param_username, $param_password, $param_email);
 
             // Set parameters
             $param_username = $user_name;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash 
             $param_email = $email;
-            $param_img = $image_location;
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
@@ -302,13 +294,6 @@ p{
                     <label>Confirm Password</label>
                     <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>">
                     <span class="help-block"><?php echo $confirm_password_err; ?></span>
-                </div>
-            </div>
-            <!-- IMAGE -->
-            <div class="form-group <?php echo (!empty($image_location_err)) ? 'has-error' : ''; ?>">
-                <div class="col-md-6">
-                    <input type="file" id="img" name="image_location" accept="image/*">
-                    <span class="help-block"><?php echo $image_location_err; ?></span>
                 </div>
             </div>
             <!-- SUBMIT -->
