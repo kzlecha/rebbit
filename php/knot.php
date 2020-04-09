@@ -195,9 +195,9 @@ require_once "include/config.php";
 
                                 if(mysqli_stmt_num_rows($stmt) == 1){
                                     // if the user is following the knot, display the unfollow button
-                                    echo "<p><a class=\"rebbit_link\" href=\"unfollow_knot.php?knot_id=".$knot_id."\">Unfollow</a></p>";
+                                    echo "<p><a class=\"rebbit_link\" href=\"unfollow_knot.php?knot_id=".$knot_id."&knot_name=".$_GET["knot_name"]."\">Unfollow</a></p>";
                                 }else{
-                                    echo "<p><a class=\"rebbit_link\" href=\"follow_knot.php?knot_id=".$knot_id."\">Follow</a></p>";
+                                    echo "<p><a class=\"rebbit_link\" href=\"follow_knot.php?knot_id=".$knot_id."&knot_name=".$_GET["knot_name"]."\">Follow</a></p>";
                                 }
                             }
 
