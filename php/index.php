@@ -196,9 +196,10 @@ require_once "include/config.php";
             // LIMIT 10: keeps from being too much information
             // theoretically have scroll/multiple pages via javascript
             
-            $sql = "SELECT user_id, post_id, post_title, image_location, post_body, p.create_date AS pdate
-                    FROM Knot AS k, Post AS p
+            $sql = "SELECT knot_name, user_name, post_id, post_title, image_location, post_body, p.create_date AS pdate
+                    FROM Knot AS k, Post AS p, User as u
                     WHERE k.knot_id = p.knot_id
+                        AND u.user_id = p.user_id
                         AND k.knot_id IN (SELECT knot_id
                                          FROM FollowingKnot
                                          GROUP BY knot_id
@@ -215,6 +216,7 @@ require_once "include/config.php";
                 echo '<img src="'.$result["image_location"].'" alt="'.$result["post_title"].'" class="img-thumbnail">';
                 echo '<div class="post_info">';
                 echo '<p class="post_title">'.$result["post_title"].'</p>';
+                echo '<p class="post_desc">'.$result["username"].'</p>';
                 echo '<img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >';
                 echo '<p class="post_date">'.$result["pdate"]."</p>";
                 echo "</div></div>";

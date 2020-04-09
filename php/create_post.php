@@ -11,85 +11,67 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false){
     header("login.php");
 }
 
+if(!isset($_GET["knot_id"])){
+    header("index.php");
+}
+
 // User name and password defined, left with empty variables 
-$knot_name = "";
-$knot_err = "";
+$post_title = $post_body = $post_err = "";
  
 // When form is submitted process the data 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
     // Username validation 
-    if(empty(trim($_POST["knot_name"]))){
-        $knot_err = "Please create a knot name. ";
-    }elseif(strlen(trim($_POST["knot_name"])) > 64) {
+    if(empty(trim($_POST["post_title"]))){
+        $post_err = "Please create a post title.";
+    }elseif(strlen(trim($_POST["post_title"])) > 256) {
         // Password must be greater than 8 char
-        $knot_err = "Knot Name must have less than 64 characters.";
+        $post_err = "Post Title must have less than 256 characters.";
     }else{
-        // Select statement of user_name
-        $sql = "SELECT knot_id FROM Knot WHERE knot_name = ?";
-        
-        if($stmt = mysqli_prepare($link, $sql)){
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_knotname);
-            
-            // Set parameters
-            $param_knotname = trim($_POST["knot_name"]);
-            
-            // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
-                /* store result */
-                mysqli_stmt_store_result($stmt);
-                
-                if(mysqli_stmt_num_rows($stmt) == 1){
-                    $knot_err = "Sorry, this knot is already taken.";
-                } else{
-                    $knot_name = trim($_POST["knot_name"]);
-                }
-            } else{
-                echo "Oops! Something went wrong. Please try again later.";
-            }
-
-            // Close statement
-            mysqli_stmt_close($stmt);
-        }
+        $post_title = $_POST["post_title"];
     }
     
-    // TODO: validate user login
-    // Ensure the user is logged in
-    // $valid_user = login_verified($_POST["username"], $_POST["password"]);
-    
+    if(strlen(trim($_POST["post_body"])) > 256) {
+        // Password must be greater than 8 char
+        $post_err = "Post Body must have less than 256 characters.";
+    }else{
+        $post_body = $_POST["post_body"];
+    }
+        
     // Check input errors before inserting in database
-    if(empty($knot_err)){
+    if(empty($post_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO Knot (knot_name) VALUES (?)";
+        $sql = "INSERT INTO Post (user_id, knot_id, post_title, post_body, image_location) VALUES (?, ?, ?, ?, 'imag')";
          
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_knotname);
-            
-            // Set parameters
-            $param_knotname = $knot_name;
+            mysqli_stmt_bind_param($stmt, "iiss", $param_userid, $param_knotid, $param_title, $param_body);
+            $param_userid = $_SESSION["user_id"];
+            $param_knotid = $_GET["knot_id"];
+            $param_title = $post_title;
+            $param_body = $post_body;
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // set the creator as the admin
-                $sql = "SELECT knot_id FROM Knot WHERE knot_name = ".$knot_name;
-                $query = mysqli_query($link, $sql) or header("location: knot.php?knot_name=".$knot_name."");
+                $sql = "SELECT post_id FROM Post WHERE user_id = ? AND knot_id = ? AND post_title = ?";
+                if($stmt = mysqli_prepare($link, $sql)){
+                    
+                    mysqli_stmt_bind_param($stmt, "iis", $param_userid, $param_knotid, $param_title);
+                    $param_userid = $_SESSION["user_id"];
+                    $param_knotid = $_GET["knot_id"];
+                    $param_title = $post_title;
 
-                if ($result = mysqli_fetch_array($query)){
-                    $sql = "INSERT INTO KnotAdmin (knot_id, user_id) VALUES (?,?)";
-                    if($stmt = mysqli_prepare($link, $sql)){
-                        mysqli_stmt_bind_param($stmt, "ii", $param_knotid, $param_userid);
-                        $param_knotid = $result["knot_id"];
-                        $param_userid = $_SESSION["user_id"];
-                        mysqli_stmt_execute($stmt);
-                    }else{
-                        header("location: knot.php?knot_name=".$knot_name."");
+                    if(mysqli_stmt_execute($stmt)){
+                        mysqli_stmt_bind_result($stmt, $post_id);
+                        if(mysqli_stmt_fetch($stmt)){
+                            header("location: post.php?post_id=".$post_id);
+                        }
                     }
                 }
                     
-                header("location: knot.php?knot_name=".$knot_name."");
+                header("location: index.php");
             } else{
                 echo "Something went wrong. Please try again later.";
             }
@@ -161,14 +143,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     <!-- Sign Up Form -->
     <div class="wrapper form_rebbit" style="padding-top: 40px; padding: 20px;">
-        <h2>Create Knot</h2>
-        <p>Please create a Knot.</p>
+        <h2>Create Post</h2>
+        <p>Please create a Post.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group <?php echo (!empty($knot_err)) ? 'has-error' : ''; ?>">
                 <div class="col-md-6">
-                    <label>Knot Name:</label>
-                    <input type="text" name="knot_name" class="form-control" value="<?php echo $knot_name; ?>" maxlength=64>
-                    <span class="help-block"><?php echo $knot_err; ?></span>
+                    <label>Post Title:</label>
+                    <input type="text" name="post_title" class="form-control" value="<?php echo $post_title; ?>" maxlength=64>
+                </div>
+                <div class="col-md-6">
+                    <label>Post Body:</label>
+                    <textarea name="post_body" class="form-control" value="<?php echo $post_body; ?>" maxlength=64></textarea>
+                </div>
+                <div class="col-md-6">
+                    <span class="help-block"><?php echo $post_err; ?></span>
                 </div>
             </div>
             <div class="form-group col-md-6">
