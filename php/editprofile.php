@@ -39,11 +39,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ss", $param_New_username, $param_New_email);
+            mysqli_stmt_bind_param($stmt, "ssi", $param_New_username, $param_New_email, $param_userid);
             
             // Set parameters
             $param_New_username = $new_username;
             $param_New_email = $new_email;
+            $param_userid = $_SESSION["user_id"];
             
             if(mysqli_stmt_execute($stmt)){
                 session_destroy();
