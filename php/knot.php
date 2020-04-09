@@ -221,6 +221,7 @@ require_once "include/config.php";
                 FROM Knot AS k, Post AS p
                 WHERE k.knot_id = p.knot_id
                     AND k.knot_name = ?
+                ORDER BY pdate DESC
                 ";
 
         echo '<div class="flex_post">';
