@@ -8,12 +8,12 @@
         if(isset($_GET["knot_id"])){
             header("location: knot.php?knot_id=".$knot_id."");
         }else{
-            header("page_not_found.php");
+            header("location: page_not_found.php");
         }
     }
 
     if(!isset($_GET['knot_id'])){
-        header("page_not_found.php");
+        header("location: page_not_found.php");
     }
 
     $user_id = $_SESSION["user_id"];
