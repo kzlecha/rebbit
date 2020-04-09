@@ -75,24 +75,21 @@ require_once "include/config.php";
         require_once "include/navbar.php";
     ?>
 
-    // TODO: ADD PREPARED STATEMENTS 
     <!-- USER POST + COMMENTS -->
     <?php 
-        echo "<div class=\"container-fluid post\"";
         if(isset($_SESSION['user_name'])){
           echo("<p style=\"color:#4f676c\"><i>Hello, ".$_SESSION['user_name']." </i></p>");
         }
 
-        $sql = "SELECT k.knot_id AS knot_id, user_id, user_name, post_id, post_title, image_location, post_body, p.create_date AS pdate 
-                      FROM Posts as p, Knot AS k, User as u
+        $sql = "SELECT k.knot_id AS knot_id, u.user_id AS user_id, user_name, post_id, post_title, knot_name, image_location, post_body, p.create_date AS pdate 
+                      FROM Post as p, Knot AS k, User as u
                       WHERE p.user_id = k.user_id
                       AND k.user_id = u.user_id";
 
         $query = mysqli_query($link, $sql) or die(mysqli_error($link));
 
-        
-
-
+        //Bind variables
+      
         // POST
         echo "<h2 class=\"post_title\">".$_GET["post_title"]."</h2>";
         echo "<h3 class=\"post_knot\">".$_GET["knot_name"]."</h3>"; //Knot id
@@ -108,26 +105,27 @@ require_once "include/config.php";
           echo "</div>";
         echo "</div>";
 
+
+        //Get comments sql query
+
+
         // COMMENTS
         echo "<button type=\"button\" class=\"collapsible\">Comments</button>";
           echo "<div class=\"content\">";
           echo "<p class=\"post_desc\">" .$_GET["comment_body"]. "</p>";
-          echo "<p class=".$_GET["create_date"].">03-12-2020</p>";
+          echo "<p class=".$_GET["create_date"]."</p>";
         echo "</div>";
 
       // IF LOGGED IN ADD COMMENT
       if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-       
-          $sql = "SELECT k.knot_id AS knot_id, user_id, user_name, post_id, post_title, image_location, post_body, p.create_date AS pdate 
-                      FROM Posts as p, Knot AS k, User as u
-                      WHERE p.user_id = k.user_id
-                      AND k.user_id = u.user_id";
-          
-          $query = mysqli_query($link, $sql) or die(mysqli_error($link));
+        //Button to add comment as form 
+        echo "<p> Add a comment </p>";
+        echo "<form action=" .$_SERVE['PHP_SELF']. "method=\"POST\">";
+          echo "<input type=\"text\" name=\"comment_body\" id=\"comment\" /><br /><br />";
+          echo "<input type=\"submit\" value=\"submit\"><br /><br />";
 
-
+          // Create new comment 
       }
-
       echo "</div>"; 
     ?>
   

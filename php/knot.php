@@ -180,7 +180,7 @@ require_once "include/config.php";
                                     AND knot_name = ?
                                     AND user_id = ?";
         
-                        if($stmt = mysqli_prepare($link, $sql)){
+                         if($stmt = mysqli_prepare($link, $sql)){
                             // Bind variables to the prepared statement as parameters
                             mysqli_stmt_bind_param($stmt, "s1", $param_knotname, $param_userid);
                             
@@ -201,13 +201,14 @@ require_once "include/config.php";
                                 }
                             }
 
+                            }
                             // Close statement
                             mysqli_stmt_close($stmt);
                         }
                     }
                 }
             }
-        }
+        
 
         if ($loggedin){
             // if the user is logged in, they can make a post
@@ -251,6 +252,7 @@ require_once "include/config.php";
         }else{
             echo "Oops! Something went wrong. Please try again later.";
         }
+    }
 
     ?>
             
