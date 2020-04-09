@@ -81,6 +81,11 @@ require_once "include/config.php";
           echo("<p style=\"color:#4f676c\"><i>Hello, ".$_SESSION['user_name']." </i></p>");
         }
 
+        $post_id = 1;
+        if(isset($_GET["post_id"])){
+          $post_id = $_GET["post_id"];
+        }
+
         $sql = "SELECT user_name, post_title, knot_name, image_location, post_body, p.create_date AS pdate 
                       FROM Post as p, Knot AS k, User as u
                       WHERE p.user_id = k.user_id
