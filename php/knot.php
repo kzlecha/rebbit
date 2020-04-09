@@ -182,7 +182,7 @@ require_once "include/config.php";
         
                          if($stmt = mysqli_prepare($link, $sql)){
                             // Bind variables to the prepared statement as parameters
-                            mysqli_stmt_bind_param($stmt, "s1", $param_knotname, $param_userid);
+                            mysqli_stmt_bind_param($stmt, "si", $param_knotname, $param_userid);
                             
                             // Set parameters
                             $param_knotname = $_GET["knot_name"];
