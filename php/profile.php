@@ -123,13 +123,12 @@ require_once "include/config.php";
           echo("<div style=\"padding:15px\"><p style=\"color:#4f676c\"><i>Hello, ".$_SESSION['user_name']."</i></p></div>");
           echo("<div style=\"padding:15px\"><h3 style=\"color:#4f676c\"> ".$_SESSION['user_name']."'s Profile</h3></div>");
         } else {
-            echo "Sorry, you must be logged in to view your profile.";
-            echo "";
+            echo "<div style=\"padding:15px\">Sorry, you must be <a href=\"login.php\"> logged in </a> to view your profile.</div>";
         }
     ?>
 
     <?php
-
+        
 
     ?>
 
