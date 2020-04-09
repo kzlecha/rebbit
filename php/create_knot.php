@@ -101,40 +101,40 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 <style>
 
-.form_rebbit{
-    background-color: #4f676c;
-    padding: 20px;
-    overflow: auto;
-    color: #e9f5ef;
-    border-radius: 25px;
-    max-width: 600px;
-}
+    .form_rebbit{
+        background-color: #4f676c;
+        padding: 20px;
+        overflow: auto;
+        color: #e9f5ef;
+        border-radius: 25px;
+        max-width: 600px;
+    }
 
-.submit_btn{
-    background-color: darkseagreen;
-    border-color: #9eb9ab;
-}
+    .submit_btn{
+        background-color: darkseagreen;
+        border-color: #9eb9ab;
+    }
 
-.reset_btn{
-    color:darkseagreen;
-}
+    .reset_btn{
+        color:darkseagreen;
+    }
 
-.rebbit_link{
-    color: darkseagreen;
-}
+    .rebbit_link{
+        color: darkseagreen;
+    }
 
-.submit_btn:hover{
-    background-color: #9eb9ab;
-    border-color: darkseagreen;
-}
+    .submit_btn:hover{
+        background-color: #9eb9ab;
+        border-color: darkseagreen;
+    }
 
-.reset_btn:hover{
-    color: #9eb9ab;
-}
+    .reset_btn:hover{
+        color: #9eb9ab;
+    }
 
-.rebbit_link:hover{
-    color: #86e4aa;
-}
+    .rebbit_link:hover{
+        color: #86e4aa;
+    }
 
 </style>
 
