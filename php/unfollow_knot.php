@@ -32,7 +32,12 @@
         // Attempt to execute the prepared statement
         if(mysqli_stmt_execute($stmt)){
             // Redirect to login page
-            header("location: knot.php?knot_name=".$_GET["knot_name"]."");
+            if(isset($_GET['knot_name'])){
+                header("location: knot.php?knot_name=".$_GET["knot_name"]."");
+            }
+            else{
+                header("location: index.php");
+            }
         } else{
             echo "Something went wrong. Please try again later.";
         }
