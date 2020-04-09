@@ -89,7 +89,7 @@ require_once "include/config.php";
         $sql = "SELECT user_name, post_title, knot_name, image_location, post_body, p.create_date AS pdate 
                       FROM Post as p, Knot AS k, User as u
                       WHERE p.knot_id = k.knot_id
-                      AND k.user_id = u.user_id
+                      AND p.user_id = u.user_id
                       AND p.post_id = ".$_GET["post_id"];
 
         $query = mysqli_query($link, $sql) or die(mysqli_error($link));
@@ -102,7 +102,7 @@ require_once "include/config.php";
           echo "<h3 class=\"post_knot\">".$result["user_name"]."</h3>"; //User id
           echo "<div class=\"container-fluid flex_post\"";
             echo "<div class=\"col post_img\"";
-            echo "<img src=\"../".$result["img_location"]."\" alt=\"post image\" class=\"img-thumbnail main_image post_knot\">";
+            echo "<img src=\"../".$result["image_location"]."\" alt=\"post image\" class=\"img-thumbnail main_image post_knot\">";
             echo "</div>";
             echo "<div class=\"col post_info\">";
               echo "<p class=\"post_desc\">" .$result["post_body"];
@@ -116,20 +116,22 @@ require_once "include/config.php";
   
 
         //Get comments sql query
-
-
-        // COMMENTS
-        echo "<button type=\"button\" class=\"collapsible\">Comments</button>";
-          echo "<div class=\"content\">";
-          echo "<p class=\"post_desc\">" .$_GET["comment_body"]. "</p>";
-          echo "<p class=".$_GET["create_date"]."</p>";
-        echo "</div>";
+        $sql = "SELECT * FROM Comment AS c, User AS u WHERE c.user_id = u.user_id AND post_id = ".$post_id;
+        $query = mysqli_query($link, $sql);
+        while($result = mysqli_fetch_array($query)){
+            echo "<button type=\"button\" class=\"collapsible\">Comments</button>";
+            echo "<div class=\"content\">";
+            echo "<p class=\"post_desc\">" .$result["user_id"]. "</p>";
+            echo "<p class=\"post_desc\">" .$result["comment_body"]. "</p>";
+            echo "<p class=".$result["create_date"]."</p>";
+            echo "</div>";
+        }
 
       // IF LOGGED IN ADD COMMENT
       if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
         //Button to add comment as form 
         echo "<p> Add a comment </p>";
-        echo "<form action=" .$_SERVE['PHP_SELF']. "method=\"POST\">";
+        echo "<form action=" .$_SERVER['PHP_SELF']. "method=\"POST\">";
           echo "<input type=\"text\" name=\"comment_body\" id=\"comment\" /><br /><br />";
           echo "<input type=\"submit\" value=\"submit\"><br /><br />";
 
