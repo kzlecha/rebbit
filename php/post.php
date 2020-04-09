@@ -88,7 +88,7 @@ require_once "include/config.php";
 
         $sql = "SELECT user_name, post_title, knot_name, image_location, post_body, p.create_date AS pdate 
                       FROM Post as p, Knot AS k, User as u
-                      WHERE p.user_id = k.user_id
+                      WHERE p.knot_id = k.knot_id
                       AND k.user_id = u.user_id
                       AND p.post_id = ".$_GET["post_id"];
 
