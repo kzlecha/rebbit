@@ -43,8 +43,8 @@
                 </li>
             </ul>
             <!-- Search bar-->
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="hop on" aria-label="Search">
+            <form action="explore.php" method="get" class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="hop on" aria-label="Search" name="keyword">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">search</button>
             </form>
         </div>
