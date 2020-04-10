@@ -3,6 +3,53 @@
 
     require_once "include/config.php";
     require_once "include/authorize.php";
+
+
+    function search_email($email){
+        /*
+            @param username: username to return the user of
+            ---
+            return the user_id if the user is found and -1 if it is not
+        */
+        $userid = -1;
+        $sql = "SELECT $user_id FROM User WHERE email = ?";
+        if($stmt = mysqli_prepare($link, $sql)){
+            mysqli_stmt_bind_param($stmt, "s", $param_email);
+            $param_email = $email;
+
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_bind_result($stmt, $user_id);
+            mysqli_stmt_fetch($stmt);
+            $userid = $user_id;
+            mysqli_stmt_close($stmt);
+        }else{
+            echo "Oops! Something went wrong. Please try again later";
+        }
+        return $userid;
+    }
+
+    function search_post($post_id){
+        /*
+            @param username: username to return the user of
+            ---
+            return the user_id if the user is found and -1 if it is not
+        */
+        $userid = -1;
+        $sql = "SELECT $user_id FROM Post WHERE post_id = ?";
+        if($stmt = mysqli_prepare($link, $sql)){
+            mysqli_stmt_bind_param($stmt, "i", $param_postid);
+            $param_email = $post_id;
+
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_bind_result($stmt, $user_id);
+            mysqli_stmt_fetch($stmt);
+            $userid = $user_id;
+            mysqli_stmt_close($stmt);
+        }else{
+            echo "Oops! Something went wrong. Please try again later";
+        }
+        return $userid;
+    }
 ?>
 
 <!doctype html>
@@ -130,10 +177,11 @@
         }
     ?>
 
-  <!-- NAVIGATION BAR-->
-  <?php
-    require_once "include/navbar.php";
-  ?>
+    <!-- NAVIGATION BAR-->
+    <?php
+        require_once "include/navbar.php";
+
+    ?>
 
   <!-- 2 column layout -->
   <div class="container-fluid">
@@ -144,81 +192,54 @@
     <div class="row">
         <!-- Search -->
         <div class="col-sm-4 overflow-auto your_knots" style="background-color: #b7d6c6; padding: 1em; border-radius: 25px;" >
-            <div class="wrapper form_rebbit">
-            <h2>Search</h2>
-            <p>Please enter the relevant information for search.</p>
-            <form id="admin_search_user" action="admin/admin_search_user.php" method="post">
-                <legend>Search For User</legend>
-                <div class="form-group">
-                    <label>Keyword</label>
-                    <input type="text" name="keyword" class="form-control" placeholder="Enter the keyword or phrase" required,>
-                </div>    
-                <div class="form-group">
-                    <label>Type</label>
-                    <select name="search_type" class="form-control">
-                        <option value="username">username</option>
-                        <option value="email">email</option>
-                        <option value="post_title">post title</option>
-                    </select>
-                </div> 
-                <div class="form-group">
-                    <input type="reset" class="btn btn-primary submit_btn" value="Reset">
-                    <input type="submit" class="btn btn-primary submit_btn" value="Search">
-                </div>
-            </form>
-            <form id="admin_search_post" action="admin/admin_search_post.php" method="post">
-                <legend>Search For Post or Comment</legend>
-                <div class="form-group">
-                    <label>Keyword</label>
-                    <input type="text" name="keyword" class="form-control" placeholder="Enter the keyword or phrase" required,>
-                </div>    
-                <div class="form-group">
-                    <label>Type</label>
-                    <select name="search_type" class="form-control">
-                        <option value="post">Post (by title)</option>
-                        <option value="comment">Comment (by body)</option>
-                    </select>
-                </div> 
-                <div class="form-group">
-                    <input type="reset" class="btn btn-primary submit_btn" value="Reset">
-                    <input type="submit" class="btn btn-primary submit_btn" value="Search">
-                </div>
-            </form>
-            </div>  
+            <?php
+                
+                $keyword = $_POST["keyword"];
+                $type = $_POST["type"];
+
+                if(empty($keyword)){
+                    header("admin.php");
+                }
+                if(empty($type)){
+                    // by default set the keyword to the username
+                    $type = "username";
+                }
+
+                // set the query
+                $sql = "";
+                if($type == "username"){
+                    $sql = "SELECT user_id FROM User WHERE user_name LIKE %?%";
+                }elseif($type == "email"){
+                    $sql = "SELECT user_id FROM User WHERE email LIKE %?%";
+                }elseif($type == "post_title"){
+                    $sql = "SELECT user_id FROM Post WHERE post_title LIKE %?%";
+                }else{
+                    header("location: ../admin.php");
+                }
+
+                if($stmt = mysqli_prepare($link, $sql)){
+                    mysqli_stmt_bind_param($stmt, "s", $param_keyword);
+                    $param_keyword = $keyword;
+
+                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_bind_result($stmt, $user_id);
+
+                    echo "<div>";
+                    while(mysqli_stmt_fetch($stmt)){
+                        // ideally use POST but idk how to do that without a form
+                        echo '<a href="user_profile.php?userid='.$user_id.'">'.$keyword.'</a><br>';
+                    }
+                    echo "</div>";
+                    
+                    mysqli_stmt_close($stmt);
+                }else{
+                    echo "Oops! Something went wrong. Please try again later";
+                }
+
+            ?>
 
         </div>
-        <!-- usage -->
-        <div class = "col-sm-4 cite_stats overflow-auto" style="background-color: #e7e4e4; padding: 1em; border-radius: 25px; ">
-            <div class="wrapper form_rebbit">
-                <h2>Rebbit Statistics</h2>
-                <p>Please enter the Statistics you wish to see.</p>
-                <form id="admin_stat" action="admin/admin_stats.php" method="post"> 
-                    <div class="form-group">
-                        <label>Desired Statistics</label>
-                        <input type="checkbox" name="growth_by_day" class="form-control" value="Growth by Day"></input>
-                        <input type="checkbox" name="popular_knots" class="form-control" value="Most Popular Knots"></input>
-                    </div> 
-                    <div class="form-group">
-                        <input type="reset" class="btn btn-primary submit_btn" value="Reset">
-                        <input type="submit" class="btn btn-primary submit_btn" value="Search">
-                    </div>
-                </form>
-            </div>
-            
-        </div>
-        <div class="col-sm-4 overflow-auto your_knots" style="background-color: #b7d6c6; padding: 1em; border-radius: 25px;" >
-            <div class="wrapper form_rebbit">
-            <h2>Restore Soft Deletes</h2>
-            <p>This feature is not yet implemented.</p>
-            <!-- TODO: restore location upon implementation -->
-            <form id="admin_soft_deletes" action="admin/soft_delete.php" method="post">
-                <div class="form-group">
-                    <input type="reset" class="btn btn-primary submit_btn" value="Reset">
-                    <input type="submit" class="btn btn-primary submit_btn" value="View Soft Deletes">
-                </div>
-            </form>
-            </div> 
-        </div>
+        
     </div>
   </div>
   

@@ -202,37 +202,64 @@
                 }
                 if(empty($type)){
                     // by default set the keyword to the username
-                    $type = "username";
+                    $type = "post";
                 }
 
                 // set the query
                 $sql = "";
-                if($type == "username"){
-                    $sql = "SELECT $user_id FROM User WHERE user_name LIKE %?%";
-                }elseif($type == "email"){
-                    $sql = "SELECT $user_id FROM User WHERE email LIKE %?%";
-                }elseif($type == "post_title"){
-                    $sql = "SELECT $user_id FROM Post WHERE post_title LIKE %?%";
-                }
-
-                if($stmt = mysqli_prepare($link, $sql)){
-                    mysqli_stmt_bind_param($stmt, "s", $param_keyword);
-                    $param_username = $keyword;
-
-                    mysqli_stmt_execute($stmt);
-                    mysqli_stmt_bind_result($stmt, $user_id);
-
-                    echo "<div>";
-                    while(mysqli_stmt_fetch($stmt)){
-                        // ideally use POST but idk how to do that without a form
-                        echo '<a href="user_profile.php?userid='.$user_id.'">'.$keyword.'</a><br>';
+                if($type == "post"){
+                    $sql = "SELECT post_id, post_title FROM Post WHERE post_title LIKE %?%";
+                    if($stmt = mysqli_prepare($link, $sql)){
+                        mysqli_stmt_bind_param($stmt, "s", $param_keyword);
+                        $param_keyword = $keyword;
+    
+                        mysqli_stmt_execute($stmt);
+                        mysqli_stmt_bind_result($stmt, $post_id, $post_title);
+    
+                        echo "<div class=\"flex_post\">";
+                        while(mysqli_stmt_fetch($stmt)){
+                            // ideally use POST but idk how to do that without a form
+                            echo "<div class=\"post\">";
+                            echo "<p class=\"post_title\">".$post_title."</p>";
+                            echo "<p class=\"post_desc\">".$post_desc."</p>";
+                            echo '<img src="../'.$image_location.'" alt="'.$image_location.'" class=\"img-thumbnail\">';
+                            echo '<p><a class="rebbit_link" href="delete_post.php?post_id='.$post_id.'">Remove this Post</a></p>';
+                            echo '<p><a class="rebbit_link" href="edit_post.php?post_id='.$post_id.'">Edit this Post</a></p>';
+                            echo "</div>";
+                        }
+                        echo "</div>";
+                        
+                        mysqli_stmt_close($stmt);
+                    }else{
+                        echo "Oops! Something went wrong. Please try again later";
                     }
-                    echo "</div>";
-                    
-                    mysqli_stmt_close($stmt);
+
+                }elseif($type == "comment"){
+                    $sql = "SELECT comment_id, comment_body FROM Comment WHERE comment_body LIKE %?%";
+                    if($stmt = mysqli_prepare($link, $sql)){
+                        mysqli_stmt_bind_param($stmt, "s", $param_keyword);
+                        $param_keyword = $keyword;
+    
+                        mysqli_stmt_execute($stmt);
+                        mysqli_stmt_bind_result($stmt, $comment_id, $comment_body);
+    
+                        echo "<div>";
+                        while(mysqli_stmt_fetch($stmt)){
+                            // ideally use POST but idk how to do that without a form
+                            echo '<p>'.$comment_body.'</p>';
+                            echo '<p><a class="rebbit_link" href="delete_comment.php?post_id='.$comment_id.'">Delete this Comment</a></p>';
+                            echo '<p><a class="rebbit_link" href="edit_comment.php?post_id='.$comment_id.'">Edit this Comment</a></p>';
+                        }
+                        echo "</div>";
+                        
+                        mysqli_stmt_close($stmt);
+                    }else{
+                        echo "Oops! Something went wrong. Please try again later";
+                    }
                 }else{
-                    echo "Oops! Something went wrong. Please try again later";
+                    header("location: ../admin.php");
                 }
+
 
             ?>
 
