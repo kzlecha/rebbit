@@ -146,7 +146,7 @@ require_once "include/config.php";
 
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "i", $param_keyword);
+            mysqli_stmt_bind_param($stmt, "s", $param_keyword);
             $param_keyword = $_GET['keyword'];
 
             if(mysqli_stmt_execute($stmt)){
@@ -186,7 +186,7 @@ require_once "include/config.php";
 
             if($stmt = mysqli_prepare($link, $sql)){
                 // Bind variables to the prepared statement as parameters
-                mysqli_stmt_bind_param($stmt, "i", $param_keyword);
+                mysqli_stmt_bind_param($stmt, "s", $param_keyword);
                 $param_keyword = $_GET['keyword'];
 
                 if(mysqli_stmt_execute($stmt)){
