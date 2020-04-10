@@ -140,7 +140,7 @@ require_once "include/config.php";
     <?php
     if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
         $userId = $_SESSION['user_name']; 
-        $sql = "SELECT user_id, user_name, email, image_locatiom
+        $sql = "SELECT user_id, user_name, email, image_location
                     FROM User
                     WHERE user_id = ?";
 
@@ -149,7 +149,7 @@ require_once "include/config.php";
             $param_userid = $_SESSION['user_id'];
             
             if(mysqli_stmt_execute($stmt)){
-                mysqli_stmt_bind_result($stmt, $user_id, $user_name, $email, $image_locatiom);
+                mysqli_stmt_bind_result($stmt, $user_id, $user_name, $email, $image_location);
                 echo("<div style=\"padding:5px\"><h4 style=\"color:#4f676c\">Profile Information</h4></div>"); 
                 while (mysqli_stmt_fetch($stmt)){
                     echo "<div style=\"padding:15px\">";

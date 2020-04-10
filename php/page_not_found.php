@@ -10,21 +10,20 @@
     </head>
 
 <style>
-.form_rebbit{
-    background-color: #4f676c;
-    padding: 20px;
-    overflow: auto;
-    color: #e9f5ef;
-    border-radius: 25px;
-    max-width: 600px;
-}
-.rebbit_link{
-    color: darkseagreen;
-}
-.rebbit_link:hover{
-    color: #86e4aa;
-}
-
+    .form_rebbit{
+        background-color: #4f676c;
+        padding: 20px;
+        overflow: auto;
+        color: #e9f5ef;
+        border-radius: 25px;
+        max-width: 600px;
+    }
+    .rebbit_link{
+        color: darkseagreen;
+    }
+    .rebbit_link:hover{
+        color: #86e4aa;
+    }
 </style>
 
 <body style="margin: 0.25em; background-color: #f1f0f0;">    <!-- NAVIGATION BAR-->
