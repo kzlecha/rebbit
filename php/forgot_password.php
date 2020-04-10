@@ -4,6 +4,7 @@ session_start();
 
 require_once "include/config.php";
 
+$email="";
 $err_email = "";
 if (isset($_POST['reset-password'])) {
 	$email = $_POST['email'];
