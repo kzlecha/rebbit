@@ -139,7 +139,7 @@ require_once "include/config.php";
             // LIMIT 10: keeps from being too much information
             // theoretically have scroll/multiple pages via javascript
             $sql = "SELECT knot_name, post_id, post_title, image_location, p.create_date AS pdate
-                    FROM Posts AS p, Knot AS k
+                    FROM Post AS p, Knot AS k
                     WHERE p.knot_id = k.knot_id
                         AND knot_id IN(SELECT knot_id
                                        FROM FollowingKnot

@@ -140,7 +140,7 @@ require_once "include/config.php";
         echo '<h3 style="padding-bottom:.25em; color:#50504e;">Posts Matching '.$_GET["keyword"].'</h3>';
 
         $sql = "SELECT knot_name, post_id, post_title, image_location, p.create_date AS pdate
-                FROM Posts AS p, Knot AS k
+                FROM Post AS p, Knot AS k
                 WHERE p.knot_id = k.knot_id
                     AND post_title LIKE %?%";
 
