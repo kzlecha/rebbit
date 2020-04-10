@@ -14,17 +14,16 @@
         header("../index.php");
     }
 
-    $sql = "UPDATE User SET delete_date = NOW() WHERE user_id = ?";
+    $sql = "DELETE FROM Comment WHERE comment_id = ?";
     if($stmt = mysqli_prepare($link, $sql)){
-        mysqli_stmt_bind_param($stmt, "i", $param_userid);
-        $param_userid = $_GET["user_id"];
+        mysqli_stmt_bind_param($stmt, "i", $param_commentid);
+        $param_commentid = $_GET["comment_id"];
 
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
     }else{
         echo "Oops! Something went wrong. Please try again later";
     }
-
 
     mysqli_close($link);
 

@@ -11,7 +11,7 @@
 
     $admin = is_admin($_SESSION["user_id"]);
     if(!$admin){
-        header("index.php");
+        header("../index.php");
     }
 
     $sql = "UPDATE User SET delete_date = NULL WHERE user_id = ?";
@@ -20,7 +20,6 @@
         $param_userid = $_GET["user_id"];
 
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_bind_result($stmt, $user_id);
         mysqli_stmt_close($stmt);
     }else{
         die();

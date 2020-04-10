@@ -14,10 +14,10 @@
         header("../index.php");
     }
 
-    $sql = "UPDATE User SET delete_date = NOW() WHERE user_id = ?";
+    $sql = "DELETE FROM Post WHERE post_id = ?";
     if($stmt = mysqli_prepare($link, $sql)){
-        mysqli_stmt_bind_param($stmt, "i", $param_userid);
-        $param_userid = $_GET["user_id"];
+        mysqli_stmt_bind_param($stmt, "i", $param_postid);
+        $param_postid = $_GET["post_id"];
 
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
