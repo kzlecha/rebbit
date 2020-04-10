@@ -136,8 +136,9 @@ require_once "include/config.php";
       if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
         //Button to add comment as form 
         echo "<p> Add a comment </p>";
-        echo "<form action=" .$_SERVER['PHP_SELF']. "method=\"POST\">";
-          echo "<input type=\"text\" name=\"comment_body\" id=\"comment\" /><br /><br />";
+        echo "<form action=\"comment.php\" method=\"POST\">";
+          echo '<input type="hidden" name="post_id" value='.$_GET['post_id'].'>';
+          echo "<input type=\"text\" name=\"comment_body\"/><br /><br />";
           echo "<input type=\"submit\" value=\"submit\"><br /><br />";
 
           // Create new comment 
