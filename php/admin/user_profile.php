@@ -4,46 +4,6 @@
     require_once "include/config.php";
     require_once "include/authorize.php";
 
-
-    function enable($user_id){
-        /*
-            @param username: username to return the user of
-            ---
-            return the user_id if the user is found and -1 if it is not
-        */
-        $sql = "UPDATE User SET delete_date = NULL WHERE user_id = ?";
-        if($stmt = mysqli_prepare($link, $sql)){
-            mysqli_stmt_bind_param($stmt, "i", $param_userid);
-            $param_userid = $user_id;
-
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_bind_result($stmt, $user_id);
-            mysqli_stmt_close($stmt);
-        }else{
-            echo "Oops! Something went wrong. Please try again later";
-        }
-    }
-
-    function disable($user_id){
-        /*
-            @param username: username to return the user of
-            ---
-            return the user_id if the user is found and -1 if it is not
-        */
-        $sql = "UPDATE User SET delete_date = NOW() WHERE user_id = ?";
-        if($stmt = mysqli_prepare($link, $sql)){
-            mysqli_stmt_bind_param($stmt, "i", $param_userid);
-            $param_userid = $user_id;
-
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_bind_result($stmt, $user_id);
-            mysqli_stmt_close($stmt);
-        }else{
-            echo "Oops! Something went wrong. Please try again later";
-        }
-    }
-
-
 ?>
 
 <!doctype html>
