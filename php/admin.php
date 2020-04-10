@@ -155,9 +155,9 @@
                 <div class="form-group">
                     <label>Type</label>
                     <select name="search_type" class="form-control">
-                        <option>username</option>
-                        <option>email</option>
-                        <option>post title</option>
+                        <option value="username">username</option>
+                        <option value="email">email</option>
+                        <option value="post_title">post title</option>
                     </select>
                 </div> 
                 <div class="form-group">

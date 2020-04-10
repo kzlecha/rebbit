@@ -5,51 +5,45 @@
     require_once "include/authorize.php";
 
 
-    function search_email($email){
+    function enable($user_id){
         /*
             @param username: username to return the user of
             ---
             return the user_id if the user is found and -1 if it is not
         */
-        $userid = -1;
-        $sql = "SELECT $user_id FROM User WHERE email = ?";
+        $sql = "UPDATE User SET delete_date = NULL WHERE user_id = ?";
         if($stmt = mysqli_prepare($link, $sql)){
-            mysqli_stmt_bind_param($stmt, "s", $param_email);
-            $param_email = $email;
+            mysqli_stmt_bind_param($stmt, "i", $param_userid);
+            $param_userid = $user_id;
 
             mysqli_stmt_execute($stmt);
             mysqli_stmt_bind_result($stmt, $user_id);
-            mysqli_stmt_fetch($stmt);
-            $userid = $user_id;
             mysqli_stmt_close($stmt);
         }else{
             echo "Oops! Something went wrong. Please try again later";
         }
-        return $userid;
     }
 
-    function search_post($post_id){
+    function disable($user_id){
         /*
             @param username: username to return the user of
             ---
             return the user_id if the user is found and -1 if it is not
         */
-        $userid = -1;
-        $sql = "SELECT $user_id FROM Post WHERE post_id = ?";
+        $sql = "UPDATE User SET delete_date = NOW() WHERE user_id = ?";
         if($stmt = mysqli_prepare($link, $sql)){
-            mysqli_stmt_bind_param($stmt, "i", $param_postid);
-            $param_email = $post_id;
+            mysqli_stmt_bind_param($stmt, "i", $param_userid);
+            $param_userid = $user_id;
 
             mysqli_stmt_execute($stmt);
             mysqli_stmt_bind_result($stmt, $user_id);
-            mysqli_stmt_fetch($stmt);
-            $userid = $user_id;
             mysqli_stmt_close($stmt);
         }else{
             echo "Oops! Something went wrong. Please try again later";
         }
-        return $userid;
     }
+
+
 ?>
 
 <!doctype html>
@@ -205,34 +199,36 @@
                     $type = "username";
                 }
 
-                // set the query
-                $sql = "";
-                if($type == "username"){
-                    $sql = "SELECT $user_id FROM User WHERE user_name LIKE %?%";
-                }elseif($type == "email"){
-                    $sql = "SELECT $user_id FROM User WHERE email LIKE %?%";
-                }elseif($type == "post_title"){
-                    $sql = "SELECT $user_id FROM Post WHERE post_title LIKE %?%";
-                }
+                $sql = "SELECT user_id, user_name, email, image_location, delete_date
+                        FROM User
+                        WHERE user_id = ?";
 
                 if($stmt = mysqli_prepare($link, $sql)){
-                    mysqli_stmt_bind_param($stmt, "s", $param_keyword);
-                    $param_username = $keyword;
-
-                    mysqli_stmt_execute($stmt);
-                    mysqli_stmt_bind_result($stmt, $user_id);
-
-                    echo "<div>";
-                    while(mysqli_stmt_fetch($stmt)){
-                        // ideally use POST but idk how to do that without a form
-                        echo '<a href="user_profile.php?userid='.$user_id.'">'.$keyword.'</a><br>';
-                    }
-                    echo "</div>";
+                    mysqli_stmt_bind_param($stmt, "i", $param_userid);
+                    $param_userid = $_SESSION['user_id'];
                     
-                    mysqli_stmt_close($stmt);
+                    if(mysqli_stmt_execute($stmt)){
+                        mysqli_stmt_bind_result($stmt, $user_id, $user_name, $email, $image_locatiom);
+                        echo("<div style=\"padding:5px\"><h4 style=\"color:#4f676c\">Profile Information</h4></div>"); 
+                        while (mysqli_stmt_fetch($stmt)){
+                            echo "<div style=\"padding:15px\">";
+                            echo '<h4>'.$user_name.'</h4>';
+                            echo '<h4>'.$email.'</h4>';
+                            if(isset($delete_date) && !empty($delete_date)){
+                                echo '<p><a href="activate_user.php?user_id='.$user_id.'">Activate User</a>';
+                            }else{
+                                echo '<p><a href="dectivate_user.php?user_id='.$user_id.'">Deactivate User</a>';
+                            }
+                            echo "</div>";
+                        }
                 }else{
-                    echo "Oops! Something went wrong. Please try again later";
+                    echo "Oops! Something went wrong. Please try again later.";
                 }
+
+                mysqli_stmt_close($stmt);
+
+            } 
+            mysqli_close($link);
 
             ?>
 
