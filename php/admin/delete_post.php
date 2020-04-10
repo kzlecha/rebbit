@@ -6,12 +6,12 @@
     require_once "include/authorize.php";
 
     if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
-        header("index.php");
+        header("location: ../index.php");
     }
 
     $admin = is_admin($_SESSION["user_id"]);
     if(!$admin){
-        header("../index.php");
+        header("location: ../index.php");
     }
 
     $sql = "DELETE FROM Post WHERE post_id = ?";
@@ -24,7 +24,6 @@
     }else{
         echo "Oops! Something went wrong. Please try again later";
     }
-
 
     mysqli_close($link);
 

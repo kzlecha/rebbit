@@ -6,12 +6,12 @@
     require_once "include/authorize.php";
 
     if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
-        header("index.php");
+        header("location: ../index.php");
     }
 
     $admin = is_admin($_SESSION["user_id"]);
     if(!$admin){
-        header("../index.php");
+        header("location: ../index.php");
     }
 
     $sql = "DELETE FROM Comment WHERE comment_id = ?";
