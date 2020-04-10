@@ -87,7 +87,7 @@ require_once "include/config.php";
         }
 
         $sql = "SELECT user_name, post_title, knot_name, image_location, post_body, p.create_date AS pdate 
-                      FROM Post as p, Knot AS k, Account as u
+                      FROM Post as p, Knot AS k, User as u
                       WHERE p.knot_id = k.knot_id
                       AND p.user_id = u.user_id
                       AND p.post_id = ".$_GET["post_id"];
@@ -99,7 +99,7 @@ require_once "include/config.php";
         if ($result = mysqli_fetch_array($query)){
           echo "<h2 class=\"post_title\">".$result["post_title"]."</h2>";
           echo "<h3 class=\"post_knot\">".$result["knot_name"]."</h3>"; //Knot id
-          echo "<h3 class=\"post_knot\">".$result["user_name"]."</h3>"; //Account id
+          echo "<h3 class=\"post_knot\">".$result["user_name"]."</h3>"; //User id
           echo "<div class=\"container-fluid flex_post\"";
             echo "<div class=\"col post_img\"";
             if(isset($result["image_location"]) && !empty($result["image_location"])){
