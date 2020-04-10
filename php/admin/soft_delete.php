@@ -167,17 +167,17 @@
         ?>
         </div>
         <div class="col-sm-6 trending overflow-auto" style="background-color: #e7e4e4; padding: 1em; border-radius: 25px; ">
-        <h3 style="padding-bottom:.25em; color:#4f676c;">Posts</h3>
+        <h3 style="padding-bottom:.25em; color:#4f676c;">Users</h3>
         <?php
             // growth by num users
-            $sql = "SELECT knot_id, knot_name FROM Knot WHERE delete_date IS NOT NULL";
+            $sql = "SELECT user_id, user_name FROM User WHERE delete_date IS NOT NULL";
 
             $query = mysqli_query($link, $sql) or die(mysqli_error($link));
 
             echo '<div class="flex_post">';
             while ($result = mysqli_fetch_array($query)){
                 echo "<div class=\"post post_info\">";
-                echo '<p class="post_knot">'.$result["knot_name"].'</p>';
+                echo '<p class="post_knot">'.$result["user_name"].'</p>';
                 echo '</div>';
             }
             echo "</div>";
