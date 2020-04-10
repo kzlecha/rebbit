@@ -42,7 +42,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($post_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO Post (user_id, knot_id, post_title, post_body, image_location) VALUES (?, ?, ?, ?, 'imag')";
+        $sql = "INSERT INTO Post (user_id, knot_id, post_title, post_body, image_location) VALUES (?, ?, ?, ?, 'images/assets/rebbit_logo.png')";
          
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
