@@ -28,13 +28,15 @@ if (isset($_POST['reset-password'])) {
       }
   }
 
-    $to = $email;
-    $subject = "Reset your password on Rebbit";
-    $msg = "Hi there, reset your password here: localhost:8080/resetPassword.php";
-    $msg = wordwrap($msg,70);
-    $headers = "From: rebbitdev@gmail.com";
-    mail($to, $subject, $msg, $headers);
-    header('location: pending.php');
+    if($err_email == ""){
+        $to = $email;
+        $subject = "Reset your password on Rebbit";
+        $msg = "Hi there, reset your password here: localhost:8080/rebbit/php/resetPassword.php";
+        $msg = wordwrap($msg,70);
+        $headers = "From: rebbitdev@gmail.com";
+        mail($to, $subject, $msg, $headers);
+        header('location: pending.php');
+    }
   }
 
 ?>
