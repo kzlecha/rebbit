@@ -2,8 +2,8 @@
 
     session_start();
 
-    require_once "include/config.php";
-    require_once "include/authorize.php";
+    require_once "../include/config.php";
+    require_once "../include/authorize.php";
 
     if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
         header("location: ../index.php");

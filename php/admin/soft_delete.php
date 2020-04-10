@@ -2,8 +2,8 @@
 
     session_start();
     
-    require_once "include/authorize.php";
-    require_once "include/config.php";
+    require_once "../include/authorize.php";
+    require_once "../include/config.php";
 
 ?>
 
@@ -134,7 +134,7 @@
 
     <!-- NAVIGATION BAR-->
     <?php
-        require_once "include/navbar.php";
+        require_once "../include/navbar.php";
     ?>
 
     <p style="font-size: small;">Return to admin profile: <a class="rebbit_link" href="admin.php">admin page</a></p>
