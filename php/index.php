@@ -138,16 +138,15 @@ require_once "include/config.php";
 
             // LIMIT 10: keeps from being too much information
             // theoretically have scroll/multiple pages via javascript
-            $userId = $_SESSION['user_name'];            
-            $sql = "SELECT knot_name, user_id, post_id, post_title, image_location, post_body, p.create_date AS pdate
+            $sql = "SELECT knot_name, post_id, post_title, image_location, p.create_date AS pdate
                     FROM Posts AS p, Knot AS k
                     WHERE p.knot_id = k.knot_id
                         AND knot_id IN(SELECT knot_id
                                        FROM FollowingKnot
-                                       WHERE user_id = $userId)
+                                       WHERE user_id = ?)
                         AND knot_id NOT IN(SELECT knot_id
                                            FROM BannedFromKnot
-                                           WHERE user_id = $userId)";
+                                           WHERE user_id = ?)";
 
             if($stmt = mysqli_prepare($link, $sql)){
               // Bind variables to the prepared statement as parameters
@@ -155,19 +154,17 @@ require_once "include/config.php";
               $param_userid = $_SESSION['user_id'];
 
               if(mysqli_stmt_execute($stmt)){
-                mysqli_stmt_bind_result($stmt, $knot_name, $user_id, $post_id, $post_title, $image_location, $post_body, $pdate);
+                mysqli_stmt_bind_result($stmt, $knot_name, $post_id, $post_title, $image_location, $pdate);
                 echo '<div class="flex_post">';
                 while (mysqli_stmt_fetch($stmt)){
                     // link to post
                     echo '<a href="post.php?post_id='.$post_id.'">';
                     echo "<div class=\"post\">";
                     echo '<p class="post_knot">'.$knot_name.'</p>';
-                    echo '<img src="'.$image_location.'" alt="'.$title.'" class="img-thumbnail">';
+                    echo '<img src="'.$image_location.'" alt="'.$post_title.'" class="img-thumbnail">';
                     echo '<div class="post_info">';
-                    echo '<p class="post_title">'.$title.'</p>';
+                    echo '<p class="post_title">'.$post_title.'</p>';
                     echo '<img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >';
-                    // REVIEW: do we want to maybe remove the description or limit the amount of text via JS?
-                    // echo '<p class="post_desc">'.$result["description"]."</p>";
                     echo '<p class="post_date">'.$pdate."</p>";
                     echo '<img src="../images/assets/chat-icon.png" class="comment_button">';
                     echo "</div></div>";

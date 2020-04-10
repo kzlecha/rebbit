@@ -139,7 +139,7 @@ require_once "include/config.php";
         echo '<div class="col-sm-6 overflow-auto your_knots overflow-auto" style="background-color: #b7d6c6; padding: 1em; border-radius: 25px;" >';
         echo '<h3 style="padding-bottom:.25em; color:#50504e;">Posts Matching '.$_GET["keyword"].'</h3>';
 
-        $sql = "SELECT knot_name, post_id, post_title, image_location, post_body, p.create_date AS pdate
+        $sql = "SELECT knot_name, post_id, post_title, image_location, p.create_date AS pdate
                 FROM Posts AS p, Knot AS k
                 WHERE p.knot_id = k.knot_id
                     AND post_title LIKE %?%";
@@ -150,16 +150,16 @@ require_once "include/config.php";
             $param_keyword = $_GET['keyword'];
 
             if(mysqli_stmt_execute($stmt)){
-            mysqli_stmt_bind_result($stmt, $knot_name, $post_id, $post_title, $image_location, $post_body, $pdate);
+            mysqli_stmt_bind_result($stmt, $knot_name, $post_id, $post_title, $image_location, $pdate);
             echo '<div class="flex_post">';
             while (mysqli_stmt_fetch($stmt)){
                 // link to post
                 echo '<a href="post.php?post_id='.$post_id.'">';
                 echo "<div class=\"post\">";
                 echo '<p class="post_knot">'.$knot_name.'</p>';
-                echo '<img src="'.$image_location.'" alt="'.$title.'" class="img-thumbnail">';
+                echo '<img src="'.$image_location.'" alt="'.$post_title.'" class="img-thumbnail">';
                 echo '<div class="post_info">';
-                echo '<p class="post_title">'.$title.'</p>';
+                echo '<p class="post_title">'.$post_title.'</p>';
                 echo '<img src="images/graphics/UpvoteDownvote.png" alt="..." class="post_upvote" >';
                 echo '<p class="post_date">'.$pdate."</p>";
                 echo '<img src="../images/assets/chat-icon.png" class="comment_button">';
