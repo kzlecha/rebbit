@@ -169,7 +169,7 @@ require_once "include/config.php";
             echo "</div>";
             }
         }else{
-            echo "sorry, an error has occured. Please try again later";
+            echo "Sorry, we didn't find anything to meet your search.";
         }
 
         echo '</div>';
